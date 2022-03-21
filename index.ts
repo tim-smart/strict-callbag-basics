@@ -7,6 +7,7 @@ export * from "./api/fromIter";
 export * from "./api/merge";
 
 // operators
+export * from "./api/chainPar";
 export * from "./api/filter";
 export * from "./api/flatten";
 export * from "./api/groupBy";
