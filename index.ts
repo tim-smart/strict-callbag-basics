@@ -14,3 +14,4 @@ export * from "./api/groupBy";
 export * from "./api/map";
 export * from "./api/share";
 export * from "./api/startWith";
+export * from "./api/switchMap";
