@@ -15,7 +15,9 @@ const makeLB = <E, A>(
 
   const add = (source: Source<A, E>) => {
     const sub = subscribe(source, {
-      onStart() {},
+      onStart() {
+        sub.pull()
+      },
       onData,
       onEnd(err) {
         if (err) {
@@ -28,10 +30,6 @@ const makeLB = <E, A>(
 
     sub.listen()
     subscriptions.push(sub)
-
-    if (subscriptions.length === 1) {
-      sub.pull()
-    }
   }
 
   const endSubscription = (sub: Subscription) => {
@@ -95,7 +93,7 @@ export const chainPar_ =
   <E, E1, A, B>(
     self: Source<A, E>,
     fab: (a: A) => Source<B, E1>,
-    maxInnerCount = Infinity,
+    concurrency = Infinity,
   ): Source<B, E | E1> =>
   (_, sink) => {
     const lb = makeLB<E | E1, B>(
@@ -108,7 +106,7 @@ export const chainPar_ =
     let sub: Subscription
 
     function maybePullInner() {
-      if (sub && lb.size() < maxInnerCount) {
+      if (sub && lb.size() < concurrency) {
         sub.pull()
       }
     }

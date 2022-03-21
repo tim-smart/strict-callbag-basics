@@ -26,7 +26,11 @@ export const run_ = <A, E, EO>(
         }
       },
       onAbort(err) {
-        reject(err)
+        if (err) {
+          reject(err)
+        } else {
+          resolve()
+        }
       },
     })
   })

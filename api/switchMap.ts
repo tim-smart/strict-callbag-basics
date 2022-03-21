@@ -18,6 +18,16 @@ export const switchMap_ =
         s.pull()
       },
 
+      onRequest(s) {
+        waitingForData = true
+
+        if (innerSub) {
+          innerSub.pull()
+        } else {
+          s.pull()
+        }
+      },
+
       onData(outerSub, data) {
         if (innerSub) {
           innerSub.cancel()
@@ -35,6 +45,8 @@ export const switchMap_ =
           },
 
           onEnd(err) {
+            innerSub = undefined
+
             if (sourceEnded) {
               sink(Signal.END, err)
               return
@@ -61,16 +73,6 @@ export const switchMap_ =
           sink(Signal.END, err)
         } else if (!innerSub) {
           sink(Signal.END, undefined)
-        }
-      },
-
-      onRequest(s) {
-        waitingForData = true
-
-        if (innerSub) {
-          innerSub.pull()
-        } else {
-          s.pull()
         }
       },
 

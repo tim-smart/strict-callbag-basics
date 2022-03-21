@@ -15,6 +15,7 @@ export const groupBy_ =
 
     createPipe(shared, sink, {
       onStart: (s) => s.pull(),
+      onRequest: (s) => s.pull(),
       onData: (_s, data) => {
         const key = keyFn(data)
 
@@ -31,8 +32,6 @@ export const groupBy_ =
         sink(Signal.END, err)
         emitted.clear()
       },
-
-      onRequest: (s) => s.pull(),
       onAbort: () => {
         emitted.clear()
       },
