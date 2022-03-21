@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.2.0...strict-callbag-basics@0.3.0) (2022-03-21)
+
+
+### Features
+
+* switchMap ([0b398a0](https://github.com/tim-smart/strict-callbag-basics/commit/0b398a0cecaf4fc1c26ac02d4b33fe617926295e))
+
+
+
+
+
 # [0.2.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.1.2...strict-callbag-basics@0.2.0) (2022-03-21)
 
 
