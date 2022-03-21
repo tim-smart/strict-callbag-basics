@@ -1,6 +1,6 @@
 {
   "name": "strict-callbag-basics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Common operators for strict-callbag",
   "main": "index.js",
   "files": [
