@@ -1,84 +1,84 @@
 // ets_tracing: off
-import { Signal, Source } from "strict-callbag";
-import { createPipe } from "./createPipe";
-import { subscribe, Subscription } from "./subscribe";
+import { Signal, Source } from "strict-callbag"
+import { createPipe } from "./createPipe"
+import { subscribe, Subscription } from "./subscribe"
 
 export const switchMap_ =
   <E, E1, A, B>(
     self: Source<A, E>,
-    fab: (a: A) => Source<B, E1>
+    fab: (a: A) => Source<B, E1>,
   ): Source<B, E | E1> =>
   (_, sink) => {
-    let innerSub: Subscription | undefined;
-    let sourceEnded = false;
-    let waitingForData = true;
+    let innerSub: Subscription | undefined
+    let sourceEnded = false
+    let waitingForData = true
 
     createPipe(self, sink, {
       onStart(s) {
-        s.pull();
+        s.pull()
       },
 
       onData(outerSub, data) {
         if (innerSub) {
-          innerSub.cancel();
-          innerSub = undefined;
+          innerSub.cancel()
+          innerSub = undefined
         }
 
         const sub = subscribe(fab(data), {
           onStart() {
-            sub.pull();
+            sub.pull()
           },
 
           onData(data) {
-            waitingForData = false;
-            sink(Signal.DATA, data);
+            waitingForData = false
+            sink(Signal.DATA, data)
           },
 
           onEnd(err) {
             if (sourceEnded) {
-              sink(Signal.END, err);
-              return;
+              sink(Signal.END, err)
+              return
             }
 
             if (err) {
-              outerSub.cancel();
-              sink(Signal.END, err);
+              outerSub.cancel()
+              sink(Signal.END, err)
             } else if (waitingForData) {
-              outerSub.pull();
+              outerSub.pull()
             }
           },
-        });
+        })
 
-        sub.listen();
-        innerSub = sub;
+        sub.listen()
+        innerSub = sub
       },
 
       onEnd(err) {
-        sourceEnded = true;
+        sourceEnded = true
 
         if (err) {
-          innerSub?.cancel();
-          sink(Signal.END, err);
+          innerSub?.cancel()
+          sink(Signal.END, err)
         } else if (!innerSub) {
-          sink(Signal.END, undefined);
+          sink(Signal.END, undefined)
         }
       },
 
       onRequest(s) {
-        waitingForData = true;
+        waitingForData = true
 
         if (innerSub) {
-          innerSub.pull();
+          innerSub.pull()
         } else {
-          s.pull();
+          s.pull()
         }
       },
 
       onAbort() {
-        innerSub?.cancel();
+        innerSub?.cancel()
       },
-    });
-  };
+    })
+  }
 
 /**
  * @ets_data_first switchMap_
@@ -86,4 +86,4 @@ export const switchMap_ =
 export const switchMap =
   <E1, A, B>(fab: (a: A) => Source<B, E1>) =>
   <E>(fa: Source<A, E>): Source<B, E | E1> =>
-    switchMap_(fa, fab);
+    switchMap_(fa, fab)

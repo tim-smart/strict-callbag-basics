@@ -1,7 +1,7 @@
 declare module "callbag-start-with" {
-  import { Source } from "strict-callbag";
+  import { Source } from "strict-callbag"
 
-  const startWith: <A>(...as: A[]) => <E>(source: Source<A, E>) => Source<A, E>;
+  const startWith: <A>(...as: A[]) => <E>(source: Source<A, E>) => Source<A, E>
 
-  export default startWith;
+  export default startWith
 }

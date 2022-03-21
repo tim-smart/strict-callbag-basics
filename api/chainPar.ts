@@ -1,17 +1,17 @@
-import { Signal, Source } from "strict-callbag";
-import { createPipe } from "./createPipe";
-import { subscribe, Subscription } from "./subscribe";
+import { Signal, Source } from "strict-callbag"
+import { createPipe } from "./createPipe"
+import { subscribe, Subscription } from "./subscribe"
 
 const makeLB = <E, A>(
   onData: (a: A) => void,
   onError: (e: E) => void,
   onEnd: () => void,
-  onChildEnd: () => void
+  onChildEnd: () => void,
 ) => {
-  let parentEnded = false;
+  let parentEnded = false
 
-  const subscriptions: Subscription[] = [];
-  let pullIndex = 0;
+  const subscriptions: Subscription[] = []
+  let pullIndex = 0
 
   const add = (source: Source<A, E>) => {
     const sub = subscribe(source, {
@@ -19,67 +19,67 @@ const makeLB = <E, A>(
       onData,
       onEnd(err) {
         if (err) {
-          error(err, sub);
+          error(err, sub)
         } else {
-          endSubscription(sub);
+          endSubscription(sub)
         }
       },
-    });
+    })
 
-    sub.listen();
-    subscriptions.push(sub);
+    sub.listen()
+    subscriptions.push(sub)
 
     if (subscriptions.length === 1) {
-      sub.pull();
+      sub.pull()
     }
-  };
+  }
 
   const endSubscription = (sub: Subscription) => {
-    const index = subscriptions.indexOf(sub);
-    subscriptions.splice(index, 1);
+    const index = subscriptions.indexOf(sub)
+    subscriptions.splice(index, 1)
 
     if (index < pullIndex) {
-      pullIndex--;
+      pullIndex--
     }
 
     if (!subscriptions.length && parentEnded) {
-      onEnd();
+      onEnd()
     } else {
-      onChildEnd();
+      onChildEnd()
     }
-  };
+  }
 
   const end = () => {
-    parentEnded = true;
+    parentEnded = true
 
     if (!subscriptions.length) {
-      onEnd();
+      onEnd()
     }
-  };
+  }
 
   const abort = (from?: Subscription) => {
-    subscriptions.forEach((sub) => from !== sub && sub.cancel());
-    subscriptions.splice(0);
-  };
+    subscriptions.forEach((sub) => from !== sub && sub.cancel())
+    subscriptions.splice(0)
+  }
 
   const error = (err: E, sub?: Subscription) => {
-    abort(sub);
-    onError(err);
-  };
+    abort(sub)
+    onError(err)
+  }
 
   const pull = () => {
     if (!subscriptions.length) {
-      return;
+      return
     }
 
     if (pullIndex >= subscriptions.length) {
-      pullIndex = 0;
+      pullIndex = 0
     }
 
-    const sub = subscriptions[pullIndex];
-    sub.pull();
-    pullIndex++;
-  };
+    const sub = subscriptions[pullIndex]
+    sub.pull()
+    pullIndex++
+  }
 
   return {
     pull,
@@ -88,58 +88,58 @@ const makeLB = <E, A>(
     abort,
     error,
     size: () => subscriptions.length,
-  } as const;
-};
+  } as const
+}
 
 export const chainPar_ =
   <E, E1, A, B>(
     self: Source<A, E>,
     fab: (a: A) => Source<B, E1>,
-    maxInnerCount = Infinity
+    maxInnerCount = Infinity,
   ): Source<B, E | E1> =>
   (_, sink) => {
     const lb = makeLB<E | E1, B>(
       (a) => sink(Signal.DATA, a),
       (e) => sink(Signal.END, e),
       () => sink(Signal.END, undefined),
-      () => maybePullInner()
-    );
+      () => maybePullInner(),
+    )
 
-    let sub: Subscription;
+    let sub: Subscription
 
     function maybePullInner() {
       if (sub && lb.size() < maxInnerCount) {
-        sub.pull();
+        sub.pull()
       }
     }
 
     createPipe(self, sink, {
       onStart(s) {
-        sub = s;
-        lb.pull();
-        maybePullInner();
+        sub = s
+        lb.pull()
+        maybePullInner()
       },
 
       onData(_, data) {
-        const inner = fab(data);
-        lb.add(inner);
-        maybePullInner();
+        const inner = fab(data)
+        lb.add(inner)
+        maybePullInner()
       },
 
       onEnd(err) {
         if (err) {
-          lb.error(err);
+          lb.error(err)
         } else {
-          lb.end();
+          lb.end()
         }
       },
 
       onRequest() {
-        lb.pull();
+        lb.pull()
       },
 
       onAbort() {
-        lb.abort();
+        lb.abort()
       },
-    });
-  };
+    })
+  }

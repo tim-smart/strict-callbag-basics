@@ -1,15 +1,15 @@
-import { Signal, Sink, Source, Talkback } from "strict-callbag";
-import { subscribe, Subscription } from "./subscribe";
+import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { subscribe, Subscription } from "./subscribe"
 
 interface Callbacks<A, EI, EO> {
-  onStart: (sub: Subscription) => void;
-  onData: (sub: Subscription, data: A) => void;
-  onEnd: (err?: EI) => void;
+  onStart: (sub: Subscription) => void
+  onData: (sub: Subscription, data: A) => void
+  onEnd: (err?: EI) => void
 
-  onRequest: (sub: Subscription) => void;
-  onAbort: (err?: EO) => void;
+  onRequest: (sub: Subscription) => void
+  onAbort: (err?: EO) => void
 
-  talkbackOverride?: (original: Talkback<any>) => Talkback<any>;
+  talkbackOverride?: (original: Talkback<any>) => Talkback<any>
 }
 
 /**
@@ -27,33 +27,33 @@ export const createPipe = <A, EI, EO = never>(
     onAbort,
 
     talkbackOverride,
-  }: Callbacks<A, EI, EO>
+  }: Callbacks<A, EI, EO>,
 ) => {
-  let sub: Subscription;
+  let sub: Subscription
 
   sink(Signal.START, (signal, err) => {
     if (signal === Signal.DATA) {
       if (!sub) {
         sub = subscribe(source, {
           onStart() {
-            onStart(sub);
+            onStart(sub)
           },
           onData(data) {
-            onData(sub, data);
+            onData(sub, data)
           },
           onEnd(err) {
-            onEnd(err);
+            onEnd(err)
           },
           talkbackOverride,
-        });
+        })
 
-        sub.listen();
+        sub.listen()
       } else {
-        onRequest(sub);
+        onRequest(sub)
       }
     } else if (Signal.END) {
-      sub?.cancel();
-      onAbort(err);
+      sub?.cancel()
+      onAbort(err)
     }
-  });
-};
+  })
+}
