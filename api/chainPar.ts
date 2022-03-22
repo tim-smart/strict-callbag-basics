@@ -136,3 +136,7 @@ export const chainPar_ =
       },
     })
   }
+export const chainPar =
+  <E1, A, B>(fab: (a: A) => Source<B, E1>, concurrency?: number) =>
+  <E>(self: Source<A, E>): Source<B, E | E1> =>
+    chainPar_(self, fab, concurrency)

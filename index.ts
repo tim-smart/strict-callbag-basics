@@ -15,6 +15,7 @@ export * from "./api/of"
 // operators
 export * from "./api/buffer"
 export * from "./api/catchError"
+export * from "./api/chain"
 export * from "./api/chainPar"
 export * from "./api/delay"
 export * from "./api/drain"
