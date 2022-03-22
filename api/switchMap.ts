@@ -11,6 +11,7 @@ export const switchMap_ =
   (_, sink) => {
     let innerSub: Subscription | undefined
     let sourceEnded = false
+    let sourceError: E | undefined
     let waitingForData = true
 
     createPipe(self, sink, {
@@ -48,7 +49,7 @@ export const switchMap_ =
             innerSub = undefined
 
             if (sourceEnded) {
-              sink(Signal.END, err)
+              sink(Signal.END, err ?? sourceError)
               return
             }
 
@@ -67,12 +68,10 @@ export const switchMap_ =
 
       onEnd(err) {
         sourceEnded = true
+        sourceError = err
 
-        if (err) {
-          innerSub?.cancel()
+        if (!innerSub) {
           sink(Signal.END, err)
-        } else if (!innerSub) {
-          sink(Signal.END, undefined)
         }
       },
 

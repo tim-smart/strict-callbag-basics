@@ -4,11 +4,11 @@ import { subscribe, Subscription } from "./subscribe"
 
 const makeLB = <E, A>(
   onData: (a: A) => void,
-  onError: (e: E) => void,
-  onEnd: () => void,
+  onEnd: (e?: E) => void,
   onChildEnd: () => void,
 ) => {
   let parentEnded = false
+  let parentError: E | undefined
 
   const subscriptions: Subscription[] = []
   let pullIndex = 0
@@ -41,14 +41,15 @@ const makeLB = <E, A>(
     }
 
     if (!subscriptions.length && parentEnded) {
-      onEnd()
+      onEnd(parentError)
     } else {
       onChildEnd()
     }
   }
 
-  const end = () => {
+  const end = (err?: E) => {
     parentEnded = true
+    parentError = err
 
     if (!subscriptions.length) {
       onEnd()
@@ -62,7 +63,7 @@ const makeLB = <E, A>(
 
   const error = (err: E, sub?: Subscription) => {
     abort(sub)
-    onError(err)
+    onEnd(err)
   }
 
   const pull = () => {
@@ -84,7 +85,6 @@ const makeLB = <E, A>(
     add,
     end,
     abort,
-    error,
     size: () => subscriptions.length,
   } as const
 }
@@ -99,7 +99,6 @@ export const chainPar_ =
     const lb = makeLB<E | E1, B>(
       (a) => sink(Signal.DATA, a),
       (e) => sink(Signal.END, e),
-      () => sink(Signal.END, undefined),
       () => maybePullInner(),
     )
 
@@ -125,11 +124,7 @@ export const chainPar_ =
       },
 
       onEnd(err) {
-        if (err) {
-          lb.error(err)
-        } else {
-          lb.end()
-        }
+        lb.end(err)
       },
 
       onRequest() {

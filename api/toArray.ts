@@ -17,6 +17,7 @@ export const toArray =
       },
       onEnd(err) {
         if (err) {
+          array = []
           sink(Signal.END, err)
         } else {
           sink(Signal.DATA, array)

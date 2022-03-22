@@ -5,6 +5,7 @@ export const delay_ =
   <A, E>(self: Source<A, E>, delayMs: number): Source<A, E> =>
   (_, sink) => {
     let sourceEnded = false
+    let sourceError: E | undefined
     let timeouts = new Set<NodeJS.Timeout>()
 
     function cleanup() {
@@ -16,7 +17,7 @@ export const delay_ =
 
     function maybeEnd() {
       if (sourceEnded && timeouts.size === 0) {
-        sink(Signal.END, undefined)
+        sink(Signal.END, sourceError)
       }
     }
 
@@ -36,13 +37,9 @@ export const delay_ =
         timeouts.add(timeout)
       },
       onEnd(err) {
-        if (err) {
-          cleanup()
-          sink(Signal.END, err)
-        } else {
-          sourceEnded = true
-          maybeEnd()
-        }
+        sourceEnded = true
+        sourceError = err
+        maybeEnd()
       },
       onAbort() {
         cleanup()

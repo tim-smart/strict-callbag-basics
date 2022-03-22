@@ -13,6 +13,7 @@ export const buffer_ =
   <A, E>(self: Source<A, E>, bufferSize = 16): Source<A, E> =>
   (_, sink) => {
     let sourceEnded = false
+    let sourceError: E | undefined
     let pendingPulls = 0
 
     let buffer: A[] = []
@@ -26,7 +27,7 @@ export const buffer_ =
 
     function maybeEnd() {
       if (sourceEnded && buffer.length === 0) {
-        sink(Signal.END, undefined)
+        sink(Signal.END, sourceError)
       }
     }
 
@@ -83,13 +84,9 @@ export const buffer_ =
         }
       },
       onEnd(err) {
-        if (err) {
-          cleanup()
-          sink(Signal.END, err)
-        } else {
-          sourceEnded = true
-          maybeEnd()
-        }
+        sourceEnded = true
+        sourceError = err
+        maybeEnd()
       },
       onAbort() {
         cleanup()
