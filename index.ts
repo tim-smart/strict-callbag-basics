@@ -4,8 +4,12 @@ export * from "./api/subscribe"
 
 // factories
 export * from "./api/async"
+export * from "./api/empty"
+export * from "./api/error"
 export * from "./api/fromIter"
 export * from "./api/merge"
+export * from "./api/never"
+export * from "./api/of"
 
 // operators
 export * from "./api/buffer"
@@ -18,9 +22,11 @@ export * from "./api/map"
 export * from "./api/share"
 export * from "./api/startWith"
 export * from "./api/switchMap"
+export * from "./api/tap"
 export * from "./api/toArray"
 
 // sinks
 export * from "./api/firstItemFrom"
+export * from "./api/forEach"
 export * from "./api/lastItemFrom"
 export * from "./api/run"
