@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.4.0...strict-callbag-basics@0.5.0) (2022-03-22)
+
+
+### Features
+
+* more operators ([64efb7b](https://github.com/tim-smart/strict-callbag-basics/commit/64efb7ba7a495661c69f972bddbf39c9bef0d1be))
+
+
+
+
+
 # [0.4.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.3.0...strict-callbag-basics@0.4.0) (2022-03-21)
 
 
