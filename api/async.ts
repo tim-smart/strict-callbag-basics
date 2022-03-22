@@ -33,15 +33,15 @@ export const async =
       sink(Signal.END, undefined)
     }
 
-    register({
-      data,
-      end,
-      error,
-    })
-
     sink(Signal.START, (t) => {
       if (t === Signal.END) {
         completed = true
       }
+    })
+
+    register({
+      data,
+      end,
+      error,
     })
   }

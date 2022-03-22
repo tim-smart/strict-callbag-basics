@@ -13,8 +13,10 @@ export * from "./api/of"
 
 // operators
 export * from "./api/buffer"
+export * from "./api/catchError"
 export * from "./api/chainPar"
 export * from "./api/delay"
+export * from "./api/drain"
 export * from "./api/filter"
 export * from "./api/flatten"
 export * from "./api/groupBy"
