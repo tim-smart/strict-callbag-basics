@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.5.1...strict-callbag-basics@0.6.0) (2022-03-22)
+
+
+### Features
+
+* {map,tap}Error operator ([1f7f689](https://github.com/tim-smart/strict-callbag-basics/commit/1f7f689be514ed18266013b809c138cbdd49a19c))
+* add chain operator ([b7aa831](https://github.com/tim-smart/strict-callbag-basics/commit/b7aa831ae300ef7c118176c6f69954977d94024b))
+* add some more operators and factories ([912ead4](https://github.com/tim-smart/strict-callbag-basics/commit/912ead4ba3ad1d6dd392c25887f08be1bba71e55))
+* catchError and drain ([95320c9](https://github.com/tim-smart/strict-callbag-basics/commit/95320c9ced105dc11370373dd54d250178b09723))
+* fromPromise ([6dd0a12](https://github.com/tim-smart/strict-callbag-basics/commit/6dd0a12892bd7a0fa3a8d912dc09e12d3f2fbf59))
+
+
+
+
+
 ## [0.5.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.5.0...strict-callbag-basics@0.5.1) (2022-03-22)
 
 **Note:** Version bump only for package strict-callbag-basics
