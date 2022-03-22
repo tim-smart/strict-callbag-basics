@@ -8,7 +8,7 @@ export const groupBy_ =
   <A, E, K>(
     self: Source<A, E>,
     keyFn: (a: A) => K,
-  ): Source<readonly [source: Source<A, E>, key: K], E> =>
+  ): Source<readonly [source: Source<A, E>, key: K, data: A], E> =>
   (_, sink) => {
     const shared: Source<A, E> = share(self)
     const emitted = new Map<K, Source<A, E>>()
@@ -25,7 +25,7 @@ export const groupBy_ =
             data,
           )
           emitted.set(key, inner)
-          sink(Signal.DATA, [inner, key])
+          sink(Signal.DATA, [inner, key, data])
         }
       },
       onEnd: (err) => {
@@ -40,5 +40,5 @@ export const groupBy_ =
 
 export const groupBy =
   <A, K>(keyFn: (a: A) => K) =>
-  <E>(self: Source<A, E>): Source<readonly [source: Source<A, E>, key: K], E> =>
+  <E>(self: Source<A, E>) =>
     groupBy_(self, keyFn)
