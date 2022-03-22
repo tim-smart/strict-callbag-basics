@@ -23,10 +23,12 @@ export * from "./api/filter"
 export * from "./api/flatten"
 export * from "./api/groupBy"
 export * from "./api/map"
+export * from "./api/mapError"
 export * from "./api/share"
 export * from "./api/startWith"
 export * from "./api/switchMap"
 export * from "./api/tap"
+export * from "./api/tapError"
 export * from "./api/toArray"
 
 // sinks
