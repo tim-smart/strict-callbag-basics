@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@effect-ts/core": "^0.59.0",
     "benny": "^3.7.1",
     "microtime": "^3.0.0",
     "rxjs": "^7.5.5",

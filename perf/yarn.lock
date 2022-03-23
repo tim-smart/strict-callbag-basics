@@ -48,6 +48,18 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
+"@effect-ts/core@^0.59.0":
+  version "0.59.0"
+  resolved "https://registry.yarnpkg.com/@effect-ts/core/-/core-0.59.0.tgz#29f74dd49a49f196039cbf0657709c9ae8770726"
+  integrity sha512-Sil/a6xzFtnQbWlV0SrvKvgaJIxF2FKGtuhd5Vn2hFxBHG/tr4wFg//T0jfFoYi68S1qJ9Y0VOFtFI+OScFLaA==
+  dependencies:
+    "@effect-ts/system" "^0.56.0"
+
+"@effect-ts/system@^0.56.0":
+  version "0.56.0"
+  resolved "https://registry.yarnpkg.com/@effect-ts/system/-/system-0.56.0.tgz#f5e2f7fcfe55f1fc2ccb54d2c4939e6de210465a"
+  integrity sha512-+k6BtQ/TZmMTC7JQkBl/KsjvcLpv7W1+PFGnkyiBi0Do13QD+pDI1gd9ZKPXTbKvTZPjudLxuf9Bfx19IRhnLg==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.8.tgz#c1e4e80d6f964fbecb3359c43bd48b40f7cadad9"
