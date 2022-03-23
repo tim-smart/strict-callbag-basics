@@ -7,7 +7,7 @@ describe("chainPar", () => {
   test("runs the inner sources in parallel", async () => {
     const result = await pipe(
       CB.fromIter([1, 2, 3]),
-      CB.chainPar((i) => CB.delay_(CB.of(i + 10), 5 - i)),
+      CB.chainPar((i) => CB.delay_(CB.of(i + 10), 20 - i * 5)),
       CB.toArray,
       CB.lastItemFrom,
     )
