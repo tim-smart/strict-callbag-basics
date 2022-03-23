@@ -1,7 +1,10 @@
-import { assert } from "chai"
+import { assert, use } from "chai"
+import ChaiPromise from "chai-as-promised"
 import { pipe } from "fp-ts/function"
 import { describe, test } from "mocha"
 import * as CB from "../../index"
+
+use(ChaiPromise)
 
 describe("async", () => {
   test("it emits data", async () => {
@@ -48,5 +51,39 @@ describe("async", () => {
     )
 
     assert.deepEqual(result, [1, 2, 3])
+  })
+})
+
+describe("asyncEmitter", () => {
+  test("it emits the items", async () => {
+    const [emit, source] = CB.asyncEmitter<number, string>()
+
+    const [results] = await Promise.all([
+      pipe(CB.toArray(source), CB.lastItemFrom),
+      new Promise<void>((r) =>
+        setTimeout(() => {
+          emit.data(1)
+          emit.data(2)
+          emit.data(3)
+          emit.end()
+          r()
+        }, 0),
+      ),
+    ])
+
+    assert.deepEqual(results, [1, 2, 3])
+  })
+
+  test("it buffers when there is no listener", async () => {
+    const [emit, source] = CB.asyncEmitter<number, string>()
+
+    emit.data(1)
+    assert.equal(await CB.firstItemFrom(source), 1)
+
+    emit.data(2)
+    assert.equal(await CB.firstItemFrom(source), 2)
+
+    emit.end()
+    await assert.isRejected(CB.firstItemFrom(source))
   })
 })

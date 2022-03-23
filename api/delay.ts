@@ -9,9 +9,7 @@ export const delay_ =
     let timeouts = new Set<NodeJS.Timeout>()
 
     function cleanup() {
-      timeouts.forEach((t) => {
-        clearTimeout(t)
-      })
+      timeouts.forEach(clearTimeout)
       timeouts.clear()
     }
 
@@ -30,10 +28,11 @@ export const delay_ =
       },
       onData(_s, data) {
         const timeout = setTimeout(() => {
-          timeouts.delete(timeout)
           sink(Signal.DATA, data)
+          timeouts.delete(timeout)
           maybeEnd()
         }, delayMs)
+
         timeouts.add(timeout)
       },
       onEnd(err) {
