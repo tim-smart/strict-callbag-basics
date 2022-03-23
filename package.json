@@ -19,7 +19,7 @@
   "license": "MIT",
   "scripts": {
     "prepublishOnly": "tsc && tsc -p ./tsconfig.esm.json",
-    "clean": "git clean -fxd -e node_modules",
+    "clean": "git clean -fxd -e node_modules **/*.js **/*.d.ts",
     "test": "mocha -r ts-node/register test/**/*.test.ts"
   },
   "devDependencies": {
