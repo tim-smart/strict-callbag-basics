@@ -1303,13 +1303,6 @@ callbag-map@^1.1.0:
   dependencies:
     callbag "^1.1.0"
 
-callbag-merge@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/callbag-merge/-/callbag-merge-3.2.2.tgz#87e4a9705dfcea109908296397834d648e8ea435"
-  integrity sha512-VeBE5Mh7LUxYwxaITKsHt3CmZeMMfpsjEamMD0Wf6ajrFE6FGa4aQnd7SZ5h0KSSTcivxe0UaT6x97f8Y9atzA==
-  dependencies:
-    callbag "^1.2.0"
-
 callbag-share@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/callbag-share/-/callbag-share-1.3.0.tgz#4284f7c13f83b0888b246c13fa099ef6ce7c4e45"
