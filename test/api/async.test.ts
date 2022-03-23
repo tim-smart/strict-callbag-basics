@@ -22,6 +22,26 @@ describe("async", () => {
     assert.deepEqual(result, [1, 2, 3])
   })
 
+  test("it calls cleanup", async () => {
+    let clean = false
+
+    const result = await pipe(
+      CB.async<number>((emit) => {
+        emit.data(1)
+        emit.data(2)
+        emit.data(3)
+        emit.end()
+
+        return () => (clean = true)
+      }),
+      CB.toArray,
+      CB.lastItemFrom,
+    )
+
+    assert.deepEqual(result, [1, 2, 3])
+    assert.isTrue(clean)
+  })
+
   test("it emits errors", async () => {
     try {
       await pipe(

@@ -7,7 +7,9 @@ export interface AsyncEmitter<E, A> {
   end: () => void
 }
 
-type Register<E, A> = (emitter: AsyncEmitter<E, A>) => void
+type Cleanup = () => void
+
+type Register<E, A> = (emitter: AsyncEmitter<E, A>) => Cleanup | void
 
 /**
  * Create a push based stream using the register callbacks
@@ -16,6 +18,12 @@ export const async =
   <A, E = unknown>(register: Register<E, A>): Source<A, E> =>
   (_, sink) => {
     let completed = false
+    let cleanup: Cleanup | void
+
+    const complete = () => {
+      completed = true
+      cleanup?.()
+    }
 
     const data = (data: A) => {
       if (completed) return
@@ -25,26 +33,31 @@ export const async =
     const error = (error: E) => {
       if (completed) return
       completed = true
+      complete()
       sink(Signal.END, error)
     }
 
     const end = () => {
       if (completed) return
-      completed = true
+      complete()
       sink(Signal.END, undefined)
     }
 
     sink(Signal.START, (t) => {
       if (t === Signal.END) {
-        completed = true
+        complete()
       }
     })
 
-    register({
+    cleanup = register({
       data,
       end,
       error,
     })
+
+    if (completed && cleanup) {
+      cleanup()
+    }
   }
 
 export const asyncEmitter = <A, E = unknown>(): readonly [
