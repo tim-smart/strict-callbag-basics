@@ -1,7 +1,7 @@
 import { assert } from "chai"
-import { pipe } from "fp-ts/function"
 import { describe, test } from "mocha"
 import * as CB from "../../index"
+import { pipe } from "../../index"
 
 describe("forEach", () => {
   test("runs the function for every item", async () => {

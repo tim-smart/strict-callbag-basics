@@ -299,7 +299,7 @@ export function pipe(
       return hi!(gh!(fg!(ef!(de!(cd!(bc!(ab!(a))))))))
     default:
       let ret = arguments[0]
-      for (let i = 1; i < arguments.length; i++) {
+      for (let i = 1, length = arguments.length; i < length; i++) {
         ret = arguments[i](ret)
       }
       return ret

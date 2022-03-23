@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import { pipe } from "fp-ts/function"
+import { pipe } from "../../index"
 import { describe, test } from "mocha"
 import * as CB from "../../index"
 
