@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.6.2...strict-callbag-basics@0.7.0) (2022-03-23)
+
+
+### Features
+
+* Add asyncEmitter ([650db92](https://github.com/tim-smart/strict-callbag-basics/commit/650db925ced691be85f12b023cdba00783c8715d))
+
+
+
+
+
 ## [0.6.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.6.1...strict-callbag-basics@0.6.2) (2022-03-22)
 
 **Note:** Version bump only for package strict-callbag-basics
