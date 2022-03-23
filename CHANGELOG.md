@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.7.2...strict-callbag-basics@0.8.0) (2022-03-23)
+
+
+### Features
+
+* add cleanup to asymc ([7fc310b](https://github.com/tim-smart/strict-callbag-basics/commit/7fc310b868ca6eb1979d7c47befbc116a3a836e7))
+
+
+
+
+
 ## [0.7.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.7.1...strict-callbag-basics@0.7.2) (2022-03-23)
 
 **Note:** Version bump only for package strict-callbag-basics
