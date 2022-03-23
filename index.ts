@@ -1,5 +1,6 @@
 // helpers
 export * from "./api/createPipe"
+export * from "./api/pipe"
 export * from "./api/subscribe"
 
 // factories
