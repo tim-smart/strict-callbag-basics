@@ -1,13 +1,36 @@
-import Merge from "callbag-merge"
-import { Source } from "strict-callbag"
+import { Signal, Source } from "strict-callbag"
+import * as LB from "./_internal/lb"
 
-export const mergeIdentical = <A, E>(...sources: Source<A, E>[]) =>
-  Merge(...(sources as any)) as Source<A, E>
+export const merge_ =
+  <A, B, E, E1>(
+    self: Source<A, E>,
+    other: Source<B, E1>,
+  ): Source<A | B, E | E1> =>
+  (_, sink) => {
+    const lb = LB.make<E | E1, A | B>(
+      (data) => sink(Signal.DATA, data),
+      (err) => sink(Signal.END, err),
+      () => {
+        lb.pull()
+      },
+    )
 
-export const merge_ = <A, B, E, E1>(
-  self: Source<A, E>,
-  other: Source<B, E1>,
-): Source<A | B, E | E1> => (Merge as any)(self, other)
+    let started = false
+    sink(Signal.START, (signal) => {
+      if (signal === Signal.DATA) {
+        if (started) {
+          lb.pull()
+        } else {
+          started = true
+          lb.add(self)
+          lb.add(other)
+          lb.end()
+        }
+      } else if (signal === Signal.END) {
+        lb.abort()
+      }
+    })
+  }
 
 export const merge =
   <B, E1>(other: Source<B, E1>) =>

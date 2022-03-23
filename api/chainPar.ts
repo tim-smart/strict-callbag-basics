@@ -1,93 +1,7 @@
 import { Signal, Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
-import { subscribe, Subscription } from "./subscribe"
-
-const makeLB = <E, A>(
-  onData: (a: A) => void,
-  onEnd: (e?: E) => void,
-  onChildEnd: () => void,
-) => {
-  let parentEnded = false
-  let parentError: E | undefined
-
-  const subscriptions: Subscription[] = []
-  let pullIndex = 0
-
-  const add = (source: Source<A, E>) => {
-    const sub = subscribe(source, {
-      onStart() {
-        sub.pull()
-      },
-      onData,
-      onEnd(err) {
-        if (err) {
-          error(err, sub)
-        } else {
-          endSubscription(sub)
-        }
-      },
-    })
-
-    sub.listen()
-    subscriptions.push(sub)
-  }
-
-  const endSubscription = (sub: Subscription) => {
-    const index = subscriptions.indexOf(sub)
-    subscriptions.splice(index, 1)
-
-    if (index < pullIndex) {
-      pullIndex--
-    }
-
-    if (!subscriptions.length && parentEnded) {
-      onEnd(parentError)
-    } else {
-      onChildEnd()
-    }
-  }
-
-  const end = (err?: E) => {
-    parentEnded = true
-    parentError = err
-
-    if (!subscriptions.length) {
-      onEnd()
-    }
-  }
-
-  const abort = (from?: Subscription) => {
-    subscriptions.forEach((sub) => from !== sub && sub.cancel())
-    subscriptions.splice(0)
-  }
-
-  const error = (err: E, sub?: Subscription) => {
-    abort(sub)
-    onEnd(err)
-  }
-
-  const pull = () => {
-    if (!subscriptions.length) {
-      return
-    }
-
-    if (pullIndex >= subscriptions.length) {
-      pullIndex = 0
-    }
-
-    const sub = subscriptions[pullIndex]
-    sub.pull()
-    pullIndex++
-  }
-
-  return {
-    pull,
-    add,
-    end,
-    abort,
-    size: () => subscriptions.length,
-  } as const
-}
+import { Subscription } from "./subscribe"
+import * as LB from "./_internal/lb"
 
 export const chainPar_ =
   <E, E1, A, B>(
@@ -96,7 +10,7 @@ export const chainPar_ =
     concurrency = Infinity,
   ): Source<B, E | E1> =>
   (_, sink) => {
-    const lb = makeLB<E | E1, B>(
+    const lb = LB.make<E | E1, B>(
       (a) => sink(Signal.DATA, a),
       (e) => sink(Signal.END, e),
       () => maybePullInner(),
