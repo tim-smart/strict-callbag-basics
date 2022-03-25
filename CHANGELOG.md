@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.8.1...strict-callbag-basics@0.9.0) (2022-03-25)
+
+
+### Features
+
+* combineLatest ([307c0f5](https://github.com/tim-smart/strict-callbag-basics/commit/307c0f5a79dd13d06ae11805246e5a0668c8d669))
+
+
+
+
+
 ## [0.8.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.8.0...strict-callbag-basics@0.8.1) (2022-03-23)
 
 **Note:** Version bump only for package strict-callbag-basics
