@@ -32,6 +32,7 @@ export * from "./api/switchMap"
 export * from "./api/tap"
 export * from "./api/tapError"
 export * from "./api/toArray"
+export * from "./api/zip"
 
 // sinks
 export * from "./api/firstItemFrom"
