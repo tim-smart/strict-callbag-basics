@@ -4,11 +4,15 @@ import { subscribe } from "./subscribe"
 const NONE = Symbol()
 type NONE = typeof NONE
 
+export interface ZipOptions {
+  latest?: boolean
+}
+
 export const zip_ =
   <A, B, E, E1>(
     self: Source<A, E>,
     other: Source<B, E1>,
-    latest = false,
+    { latest = false }: ZipOptions = {},
   ): Source<readonly [A, B], E | E1> =>
   (_, sink) => {
     let dataA: A | NONE = NONE
@@ -91,6 +95,6 @@ export const zip_ =
   }
 
 export const zip =
-  <B, E1>(other: Source<B, E1>) =>
+  <B, E1>(other: Source<B, E1>, opts?: ZipOptions) =>
   <A, E>(self: Source<A, E>) =>
-    zip_(self, other)
+    zip_(self, other, opts)

@@ -4,7 +4,7 @@ import { zip_ } from "./zip"
 export const combineLatest_ = <A, B, E, E1>(
   self: Source<A, E>,
   other: Source<B, E1>,
-): Source<readonly [A, B], E | E1> => zip_(self, other, true)
+): Source<readonly [A, B], E | E1> => zip_(self, other, { latest: true })
 
 export const combineLatest =
   <B, E1>(other: Source<B, E1>) =>
