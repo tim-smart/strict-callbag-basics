@@ -1315,6 +1315,13 @@ callbag-start-with@^3.1.0:
   resolved "https://registry.yarnpkg.com/callbag-start-with/-/callbag-start-with-3.1.0.tgz#58c7f7cb3f3f44049e130166c2cf884c76e332ac"
   integrity sha512-jeEvUoZqZj8ZVMgST7ci9wCH33e9vaARQCFrPy/8et0HYL6RNzgwi3BmfcIy63d6vpqGbciYex/3T4TiFxGgyA==
 
+callbag-take-while@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/callbag-take-while/-/callbag-take-while-2.0.0.tgz#2b6e4a69fab13862b9a067c01c9441ec66b1fc80"
+  integrity sha512-c6nnV14Xh/QEzkD6dgFSitMs0moh4ejF0zSf5SyHxNZdOjJtO+B9G9FKH7GCKPI9q485sjJ51/WcZLCloY1RdA==
+  dependencies:
+    callbag "^1.1.0"
+
 callbag-take@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/callbag-take/-/callbag-take-1.5.0.tgz#3062b42f8ed4ed7e021d2cd1306c029d2ef4a12d"
