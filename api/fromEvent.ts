@@ -1,22 +1,25 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { async } from "./async"
 import { buffer_ } from "./buffer"
 
 interface NodeishEmitter {
-  addListener(eventName: string, listener: (...args: any[]) => void): this
-  removeListener(eventName: string, listener: (...args: any[]) => void): this
+  addListener(eventName: string, listener: (...args: any[]) => unknown): unknown
+  removeListener(
+    eventName: string,
+    listener: (...args: any[]) => unknown,
+  ): unknown
 }
 
 interface DomishEmitter {
   addEventListener(
     eventName: string,
-    listener: (...args: any[]) => void,
+    listener: (...args: any[]) => unknown,
     options?: boolean | AddEventListenerOptions,
-  ): this
+  ): unknown
   removeEventListener(
     eventName: string,
-    listener: (...args: any[]) => void,
-  ): this
+    listener: (...args: any[]) => unknown,
+  ): unknown
 }
 
 type Emitter = NodeishEmitter | DomishEmitter
