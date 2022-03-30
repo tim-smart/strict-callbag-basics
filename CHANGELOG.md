@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.11.0...strict-callbag-basics@0.11.1) (2022-03-30)
+
+
+### Bug Fixes
+
+* relax fromEvent Emitter types ([c15516b](https://github.com/tim-smart/strict-callbag-basics/commit/c15516b98a77785f8e81a76e86d7921db99b78f8))
+
+
+
+
+
 # [0.11.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.10.0...strict-callbag-basics@0.11.0) (2022-03-30)
 
 
