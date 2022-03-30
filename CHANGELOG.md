@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.10.0...strict-callbag-basics@0.11.0) (2022-03-30)
+
+
+### Code Refactoring
+
+* improve zip options ([70e3877](https://github.com/tim-smart/strict-callbag-basics/commit/70e387756b1fcd9e973a2f88f918bb324c99b194))
+
+
+### Features
+
+* fromEvent and take ([0e4bbef](https://github.com/tim-smart/strict-callbag-basics/commit/0e4bbef822de41f421b95b628714dbf49548e1c1))
+
+
+### BREAKING CHANGES
+
+* zip latest boolean moved to options object
+
+
+
+
+
 # [0.10.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.9.0...strict-callbag-basics@0.10.0) (2022-03-25)
 
 
