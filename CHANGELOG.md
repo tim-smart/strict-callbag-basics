@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.11.2...strict-callbag-basics@0.12.0) (2022-03-30)
+
+
+### Features
+
+* takeWhile ([5f57bc6](https://github.com/tim-smart/strict-callbag-basics/commit/5f57bc67ebbe74b84e4a61313d0bb2c79f46b483))
+
+
+
+
+
 ## [0.11.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.11.1...strict-callbag-basics@0.11.2) (2022-03-30)
 
 
