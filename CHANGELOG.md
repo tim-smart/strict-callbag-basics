@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.11.1...strict-callbag-basics@0.11.2) (2022-03-30)
+
+
+### Bug Fixes
+
+* use type union for startWith ([9e59476](https://github.com/tim-smart/strict-callbag-basics/commit/9e594766906398910c114367008414ff8bc7648a))
+
+
+
+
+
 ## [0.11.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.11.0...strict-callbag-basics@0.11.1) (2022-03-30)
 
 
