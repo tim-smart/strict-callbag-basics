@@ -5,6 +5,7 @@ export * from "./api/subscribe"
 
 // factories
 export * from "./api/async"
+export * from "./api/concat"
 export * from "./api/empty"
 export * from "./api/error"
 export * from "./api/fromEvent"
@@ -13,6 +14,7 @@ export * from "./api/fromPromise"
 export * from "./api/merge"
 export * from "./api/never"
 export * from "./api/of"
+export * from "./api/resource"
 
 // operators
 export * from "./api/buffer"
@@ -27,6 +29,7 @@ export * from "./api/flatten"
 export * from "./api/groupBy"
 export * from "./api/map"
 export * from "./api/mapError"
+export * from "./api/scan"
 export * from "./api/share"
 export * from "./api/startWith"
 export * from "./api/switchMap"
