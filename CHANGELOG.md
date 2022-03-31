@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.12.1...strict-callbag-basics@0.13.0) (2022-03-31)
+
+
+### Features
+
+* concat, resource, scan ([a335188](https://github.com/tim-smart/strict-callbag-basics/commit/a33518831372d0b6e3ce3e223ee07270b9a7ac7f))
+* fromThunk, repeatWhile, resource ([787604a](https://github.com/tim-smart/strict-callbag-basics/commit/787604a44a3bcbbaed8f5ad3f87182f73059d3ca))
+* repeat ([eb3c26e](https://github.com/tim-smart/strict-callbag-basics/commit/eb3c26e8f3475bac9d3f813ef7b67b33de54c0c6))
+
+
+
+
+
 ## [0.12.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.12.0...strict-callbag-basics@0.12.1) (2022-03-30)
 
 **Note:** Version bump only for package strict-callbag-basics
