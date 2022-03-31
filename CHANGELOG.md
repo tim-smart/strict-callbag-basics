@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.13.0...strict-callbag-basics@0.14.0) (2022-03-31)
+
+
+### Bug Fixes
+
+* add more race condition protection to subscribe ([145688d](https://github.com/tim-smart/strict-callbag-basics/commit/145688d6e755267fa4516b7973f1763eb36bc5de))
+
+
+### Features
+
+* export strict callbag types ([918f060](https://github.com/tim-smart/strict-callbag-basics/commit/918f060da8cdbc3cba99725b7f4a7adf13dad7a2))
+* toAsyncIterable ([8ae4d3b](https://github.com/tim-smart/strict-callbag-basics/commit/8ae4d3b4d9bf94f7e063219a009ed020d111d1a6))
+
+
+
+
+
 # [0.13.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.12.1...strict-callbag-basics@0.13.0) (2022-03-31)
 
 
