@@ -1,3 +1,5 @@
+export * from "strict-callbag"
+
 // helpers
 export * from "./api/createPipe"
 export * from "./api/none"
