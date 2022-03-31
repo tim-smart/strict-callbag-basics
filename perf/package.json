@@ -5,9 +5,9 @@
   "dependencies": {
     "@effect-ts/core": "^0.59.0",
     "benny": "^3.7.1",
+    "ix": "^4.5.2",
     "microtime": "^3.0.0",
-    "rxjs": "^7.5.5",
-    "strict-callbag-basics": "^0.7.0"
+    "rxjs": "^7.5.5"
   },
   "devDependencies": {
     "@types/benchmark": "^2.1.1",

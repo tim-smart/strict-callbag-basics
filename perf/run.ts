@@ -4,7 +4,8 @@ import * as Rx from "rxjs"
 import * as RxO from "rxjs/operators"
 import * as S from "@effect-ts/core/Effect/Experimental/Stream"
 import * as T from "@effect-ts/core/Effect"
-import { pipe } from "@effect-ts/core/Function"
+import * as Ix from "ix/asynciterable"
+import * as IxO from "ix/asynciterable/operators"
 
 const array = Array.from(Array(100000).keys())
 
@@ -27,6 +28,15 @@ suite(
     const labeled = merged.pipe(RxO.flatMap((i) => Rx.of(`Got: ${i}`)))
 
     await Rx.lastValueFrom(labeled)
+  }),
+  add("ix", async () => {
+    const counts = Ix.from(array)
+    const twos = counts.pipe(IxO.filter((i) => i % 2 === 0))
+    const threes = counts.pipe(IxO.filter((i) => i % 3 === 0))
+    const merged = Ix.merge(twos, threes)
+    const labeled = merged.pipe(IxO.flatMap((i) => Ix.of(`Got: ${i}`)))
+
+    await Ix.last(labeled)
   }),
   add("@effect-ts/core", async () => {
     const counts = S.fromIterable(array)
