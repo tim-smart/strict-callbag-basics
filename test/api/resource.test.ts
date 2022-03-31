@@ -13,7 +13,7 @@ describe("resource", () => {
     const source = CB.resource(0, (acc, _index) =>
       CB.pipe(
         fakeFetch(acc),
-        CB.map((data) => [acc < 3 ? acc + 1 : undefined, CB.of(data)]),
+        CB.map((data) => [acc < 3 ? acc + 1 : CB.NONE, CB.of(data)]),
       ),
     )
 

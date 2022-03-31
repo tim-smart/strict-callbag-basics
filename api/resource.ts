@@ -1,10 +1,10 @@
 import { Signal, Source } from "strict-callbag"
-import { asyncEmitter } from "./async"
-import { buffer } from "./buffer"
+import { chain } from "./chain"
 import { flatten } from "./flatten"
-import { map } from "./map"
+import { fromThunk } from "./fromThunk"
+import { NONE } from "./none"
 import { pipe } from "./pipe"
-import { tap } from "./tap"
+import { repeatWhile } from "./repeatWhile"
 
 export const resource =
   <Acc, A, E, E1>(
@@ -12,23 +12,23 @@ export const resource =
     project: (
       acc: Acc,
       index: number,
-    ) => Source<readonly [Acc | undefined, Source<A, E>], E1>,
+    ) => Source<readonly [Acc | NONE, Source<A, E>], E1>,
   ): Source<A, E | E1> =>
   (_, sink) => {
+    let acc = initial
     let index = 0
-    const [emit, source] = asyncEmitter<
-      Source<readonly [Acc | undefined, Source<A, E>], E1>,
-      never
-    >()
-
-    emit.data(project(initial, index++))
 
     pipe(
-      source,
+      fromThunk(() => project(acc, index++)),
       flatten,
-      buffer(1),
-      tap(([acc]) => (acc ? emit.data(project(acc, index++)) : emit.end())),
-      map(([_acc, source]) => source),
-      flatten,
+      repeatWhile((_, lastItem) => {
+        if (lastItem !== NONE && lastItem[0] !== NONE) {
+          acc = lastItem[0]
+          return true
+        }
+
+        return false
+      }),
+      chain(([_, source]) => source),
     )(Signal.START, sink)
   }
