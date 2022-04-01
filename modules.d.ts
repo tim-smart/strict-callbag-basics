@@ -15,3 +15,12 @@ declare module "callbag-to-async-iterable" {
 
   export default toAsyncIterable
 }
+
+declare module "callbag-from-obs" {
+  import { Source } from "strict-callbag"
+  import { InteropObservable } from "./api/_internal/observable"
+
+  const fromObservable: <A>(obs: InteropObservable<A>) => Source<A, unknown>
+
+  export default fromObservable
+}
