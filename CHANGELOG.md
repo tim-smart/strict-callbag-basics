@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.15.1...strict-callbag-basics@0.16.0) (2022-04-01)
+
+
+### Bug Fixes
+
+* drop DOM lib in tsconfig ([af83044](https://github.com/tim-smart/strict-callbag-basics/commit/af83044cbea8a86f5ca07a23bc6d6781a2371017))
+
+
+### Features
+
+* add cleanup to resource factory ([d438768](https://github.com/tim-smart/strict-callbag-basics/commit/d438768a826d6f078970251e4330777911565d0b))
+
+
+
+
+
 ## [0.15.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.15.0...strict-callbag-basics@0.15.1) (2022-04-01)
 
 
