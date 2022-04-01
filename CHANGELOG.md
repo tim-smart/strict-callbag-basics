@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.15.0...strict-callbag-basics@0.15.1) (2022-04-01)
+
+
+### Bug Fixes
+
+* repeatWhile reset lastItem after each repeat ([3dbd513](https://github.com/tim-smart/strict-callbag-basics/commit/3dbd513de1747c0650af603c496f1e1e5858c165))
+
+
+
+
+
 # [0.15.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.14.0...strict-callbag-basics@0.15.0) (2022-04-01)
 
 
