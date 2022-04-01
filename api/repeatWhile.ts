@@ -8,12 +8,12 @@ export const repeatWhile_ =
     predicate: (index: number, lastItem: A | NONE) => boolean,
   ): Source<A, E> =>
   (_, sink) => {
-    let index = 0
-    let lastItem: A | NONE = NONE
     let waitingForData = false
     let subscription: Subscription | undefined
 
-    const resubscribe = () => {
+    const resubscribe = (index: number) => {
+      let lastItem: A | NONE = NONE
+
       const sub = subscribe(self, {
         onStart() {
           if (waitingForData) {
@@ -29,8 +29,8 @@ export const repeatWhile_ =
         onEnd(err) {
           if (err) {
             sink(Signal.END, err)
-          } else if (predicate(index++, lastItem)) {
-            resubscribe()
+          } else if (predicate(index, lastItem)) {
+            resubscribe(index + 1)
             subscription!.listen()
           } else {
             sink(Signal.END, undefined)
@@ -46,7 +46,7 @@ export const repeatWhile_ =
         waitingForData = true
 
         if (!subscription) {
-          resubscribe()
+          resubscribe(0)
           subscription!.listen()
         } else {
           subscription.pull()
