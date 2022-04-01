@@ -14,7 +14,7 @@ interface DomishEmitter {
   addEventListener(
     eventName: string,
     listener: (...args: any[]) => unknown,
-    options?: boolean | AddEventListenerOptions,
+    options?: unknown,
   ): unknown
   removeEventListener(
     eventName: string,
@@ -27,7 +27,7 @@ type Emitter = NodeishEmitter | DomishEmitter
 export const fromEvent = <A = unknown>(
   self: Emitter,
   event: string,
-  options?: boolean | AddEventListenerOptions,
+  options?: unknown,
 ): Source<A, never> =>
   async((emit) => {
     if ("addListener" in self) {
@@ -51,5 +51,5 @@ export const fromEventBuffered = <A = unknown>(
   self: Emitter,
   event: string,
   bufferSize = 16,
-  options?: boolean | AddEventListenerOptions,
+  options?: unknown,
 ) => buffer_(fromEvent<A>(self, event, options), bufferSize)
