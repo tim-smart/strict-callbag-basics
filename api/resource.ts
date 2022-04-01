@@ -5,7 +5,6 @@ import { fromThunk } from "./fromThunk"
 import { NONE } from "./none"
 import { pipe } from "./pipe"
 import { repeatWhile } from "./repeatWhile"
-import { take_ } from "./take"
 
 export const resource =
   <Acc, A, E, E1>(
@@ -21,7 +20,7 @@ export const resource =
     let index = 0
 
     pipe(
-      fromThunk(() => take_(project(acc, index++), 1)),
+      fromThunk(() => project(acc, index++)),
       flatten,
       repeatWhile((_, lastItem) => {
         if (lastItem !== NONE && lastItem[0] !== NONE) {
