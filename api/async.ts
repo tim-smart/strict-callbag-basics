@@ -1,4 +1,5 @@
 import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { emitter, Emitter } from "./emitter"
 import { share } from "./share"
 
 type Cleanup = () => void
@@ -95,4 +96,12 @@ export const asyncSink = <A, E = unknown>(): readonly [
   }
 
   return [parentSink, share(source)]
+}
+
+export const asyncEmitter = <A, E = unknown>(): readonly [
+  sink: Emitter<A, E>,
+  source: Source<A, E>,
+] => {
+  const [sink, source] = asyncSink<A, E>()
+  return [emitter(sink), source]
 }
