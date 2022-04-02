@@ -17,6 +17,7 @@ const noop = (): Sink<any, any, never> => {
 export const run_ = <A, E, EO>(
   self: Source<A, E>,
   sink: Sink<A, E, EO> = noop(),
+  ignoreEnd = false,
 ): Promise<void> =>
   new Promise((resolve, reject) => {
     createPipe(self, sink, {
@@ -30,7 +31,9 @@ export const run_ = <A, E, EO>(
         sink(Signal.DATA, data)
       },
       onEnd(err) {
-        sink(Signal.END, err)
+        if (err || ignoreEnd === false) {
+          sink(Signal.END, err)
+        }
 
         if (err) {
           reject(err)
@@ -49,6 +52,6 @@ export const run_ = <A, E, EO>(
   })
 
 export const run =
-  <A, E, EO>(sink?: Sink<A, E, EO>) =>
+  <A, E, EO>(sink?: Sink<A, E, EO>, ignoreEnd?: boolean) =>
   (self: Source<A, E>) =>
-    run_(self, sink)
+    run_(self, sink, ignoreEnd)
