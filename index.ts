@@ -2,6 +2,7 @@ export * from "strict-callbag"
 
 // helpers
 export * from "./api/createPipe"
+export * from "./api/emitter"
 export * from "./api/none"
 export * from "./api/pipe"
 export * from "./api/subscribe"
