@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.16.1...strict-callbag-basics@0.17.0) (2022-04-02)
+
+
+### Code Refactoring
+
+* async passes a sink instead of a emitter ([789840e](https://github.com/tim-smart/strict-callbag-basics/commit/789840e1a72197bc395a30fcc8abd83db927e2a9))
+
+
+### Features
+
+* add ignoreEnd to run ([95c169b](https://github.com/tim-smart/strict-callbag-basics/commit/95c169b1a1b2793a0533e2ce3f95312a1d74c818))
+
+
+### BREAKING CHANGES
+
+* AsyncEmitter has been replaced with Sink
+
+
+
+
+
 ## [0.16.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.16.0...strict-callbag-basics@0.16.1) (2022-04-01)
 
 **Note:** Version bump only for package strict-callbag-basics
