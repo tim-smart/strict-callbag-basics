@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.18.1...strict-callbag-basics@0.18.2) (2022-04-04)
+
+
+### Bug Fixes
+
+* add "this: void" to methods on interfaces ([650e3a8](https://github.com/tim-smart/strict-callbag-basics/commit/650e3a86fc7bbb699d954b62e50488f3dae8ed84))
+* update catchError test with new async api ([c64b1eb](https://github.com/tim-smart/strict-callbag-basics/commit/c64b1ebcbd88c46ac155100cf3efbf0aeae507c3))
+
+
+
+
+
 ## [0.18.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.18.0...strict-callbag-basics@0.18.1) (2022-04-02)
 
 **Note:** Version bump only for package strict-callbag-basics
