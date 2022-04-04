@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Source } from "strict-callbag"
 import { async } from "./async"
 import { buffer_ } from "./buffer"
