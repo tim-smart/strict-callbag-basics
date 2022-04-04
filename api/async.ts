@@ -30,7 +30,7 @@ export const async =
     })
 
     cleanup = register((signal, data) => {
-      if (completed) return
+      if (completed) throw new Error("sink ended")
 
       if (signal === Signal.START) {
         talkback = data
@@ -58,6 +58,8 @@ export const asyncSink = <A, E = unknown>(): readonly [
   let parentTalkback: Talkback<never> | undefined
 
   const parentSink: Sink<A, E> = (signal, data) => {
+    if (completed) throw new Error("sink ended")
+
     if (signal === Signal.START) {
       parentTalkback = data
     } else if (signal === Signal.DATA) {
