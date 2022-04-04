@@ -9,7 +9,10 @@ interface Callbacks<A, EI, EO> {
   onRequest: (this: void, sub: Subscription) => void
   onAbort: (this: void, err?: EO) => void
 
-  talkbackOverride?: (this: void, original: Talkback<any>) => Talkback<any>
+  talkbackOverride?: (
+    this: void,
+    original: Talkback<unknown>,
+  ) => Talkback<unknown>
 }
 
 /**
@@ -17,7 +20,7 @@ interface Callbacks<A, EI, EO> {
  */
 export const createPipe = <A, EI, EO = never>(
   source: Source<A, EI>,
-  sink: Sink<any, EI, EO>,
+  sink: Sink<any, EI, EO>, // eslint-disable-line
   {
     onStart,
     onData,

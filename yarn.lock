@@ -1394,6 +1394,19 @@ call-bind@^1.0.0, call-bind@^1.0.2:
     function-bind "^1.1.1"
     get-intrinsic "^1.0.2"
 
+callbag-buffer-time@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/callbag-buffer-time/-/callbag-buffer-time-1.0.0.tgz#32c0f3165460ff9d76b80ffa2c6c6ed4f392f422"
+  integrity sha512-Y9XqJWqs0M9gTvn8jQit+pXDYxrzh7KqIgN9MhwT5NzQGgEACSCzYKQpjT6p9ejfnimFjHWQC9+bifjIKnKxDQ==
+  dependencies:
+    callbag-buffer "^1.0.0"
+    callbag-interval "^1.0.0"
+
+callbag-buffer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/callbag-buffer/-/callbag-buffer-1.0.0.tgz#797f07b781591f03821e3c7ed0ddf837d128238b"
+  integrity sha512-o2QIDeWbwSoBxI7oC9WABNRX38J4N+oCH9vbAvte1jssbie/kaRG/X4fBeGoMsocR4wYNk23NTn3DMqY+C5fgA==
+
 callbag-concat@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/callbag-concat/-/callbag-concat-1.2.1.tgz#3b10bcc5a7cbbcba3bdf1c46136e5d16f36291bd"
@@ -1428,6 +1441,13 @@ callbag-from-obs@^1.2.0:
   integrity sha512-InhdPC6P4Gdpg7nuXSkocDFlb+//sbwCrVCYhxOHhSVm1gDcw/zSA+IF1gHdYtk4RQKKaCymUFCkVVUVSRThVQ==
   dependencies:
     symbol-observable "^1.2.0"
+
+callbag-interval@^1.0.0, callbag-interval@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/callbag-interval/-/callbag-interval-1.2.0.tgz#9b1e1ebbbaa46999d77dabff1acb26889fe3ad2b"
+  integrity sha512-jo2UQZ+vvGWvCCykqKzL7ixSoTmvzDysQGTQkI3qQF28weRSMSmH5k86qmm7ddfPW1yNczcL93uhGnWC5e34Og==
+  dependencies:
+    callbag "^1.1.0"
 
 callbag-map@^1.1.0:
   version "1.1.0"
