@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.19.0...strict-callbag-basics@0.20.0) (2022-04-04)
+
+
+### Features
+
+* Add Sink module ([c52f90c](https://github.com/tim-smart/strict-callbag-basics/commit/c52f90c6b8d90548dfdb984f6c30049076f55144))
+
+
+
+
+
 # [0.19.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.18.2...strict-callbag-basics@0.19.0) (2022-04-04)
 
 
