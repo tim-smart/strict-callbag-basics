@@ -1,9 +1,9 @@
 import { Signal, Source, Talkback } from "strict-callbag"
 
 interface Callbacks<A, E> {
-  onStart: () => void
-  onData: (data: A) => void
-  onEnd: (err?: E) => void
+  onStart: (this: void) => void
+  onData: (this: void, data: A) => void
+  onEnd: (this: void, err?: E) => void
 
   talkbackOverride?: (original: Talkback<any>) => Talkback<any>
 }

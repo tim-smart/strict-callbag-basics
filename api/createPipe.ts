@@ -2,14 +2,14 @@ import { Signal, Sink, Source, Talkback } from "strict-callbag"
 import { subscribe, Subscription } from "./subscribe"
 
 interface Callbacks<A, EI, EO> {
-  onStart: (sub: Subscription) => void
-  onData: (sub: Subscription, data: A) => void
-  onEnd: (err?: EI) => void
+  onStart: (this: void, sub: Subscription) => void
+  onData: (this: void, sub: Subscription, data: A) => void
+  onEnd: (this: void, err?: EI) => void
 
-  onRequest: (sub: Subscription) => void
-  onAbort: (err?: EO) => void
+  onRequest: (this: void, sub: Subscription) => void
+  onAbort: (this: void, err?: EO) => void
 
-  talkbackOverride?: (original: Talkback<any>) => Talkback<any>
+  talkbackOverride?: (this: void, original: Talkback<any>) => Talkback<any>
 }
 
 /**
