@@ -1,18 +1,6 @@
-import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { Signal, Sink, Source } from "strict-callbag"
+import { noop } from "../Sink/noop"
 import { createPipe } from "./createPipe"
-
-const noop = (): Sink<any, any, never> => {
-  let talkback: Talkback<never>
-
-  return (signal, data) => {
-    if (signal === Signal.START) {
-      talkback = data
-      talkback(Signal.DATA)
-    } else if (signal === Signal.DATA) {
-      talkback(Signal.DATA)
-    }
-  }
-}
 
 export const run_ = <A, E, EO>(
   self: Source<A, E>,
