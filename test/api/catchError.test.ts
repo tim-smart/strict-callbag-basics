@@ -7,10 +7,10 @@ describe("catchError", () => {
   test("it replaces errors with a new source", async () => {
     const errors: string[] = []
     const result = await pipe(
-      CB.async<number, string>((emit) => {
-        emit.data(1)
-        emit.data(2)
-        emit.error("fail")
+      CB.async<number, string>((sink) => {
+        sink(1, 1)
+        sink(1, 2)
+        sink(2, "fail")
       }),
       CB.catchError((e) => {
         errors.push(e)
