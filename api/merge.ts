@@ -1,13 +1,10 @@
 import { Signal, Source } from "strict-callbag"
 import * as LB from "./_internal/lb"
 
-export const merge_ =
-  <A, B, E, E1>(
-    self: Source<A, E>,
-    other: Source<B, E1>,
-  ): Source<A | B, E | E1> =>
+export const mergeIdentical =
+  <A, E>(...sources: Source<A, E>[]): Source<A, E> =>
   (_, sink) => {
-    const lb = LB.make<E | E1, A | B>(
+    const lb = LB.make<E, A>(
       (data) => sink(Signal.DATA, data),
       (err) => sink(Signal.END, err),
       () => {
@@ -22,8 +19,7 @@ export const merge_ =
           lb.pull()
         } else {
           started = true
-          lb.add(self)
-          lb.add(other)
+          sources.forEach((s) => lb.add(s))
           lb.end()
         }
       } else if (signal === Signal.END) {
@@ -31,6 +27,11 @@ export const merge_ =
       }
     })
   }
+
+export const merge_ = <A, B, E, E1>(
+  self: Source<A, E>,
+  other: Source<B, E1>,
+): Source<A | B, E | E1> => mergeIdentical(self, other as Source<A, E>)
 
 export const merge =
   <B, E1>(other: Source<B, E1>) =>
