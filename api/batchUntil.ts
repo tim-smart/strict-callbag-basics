@@ -17,11 +17,8 @@ export const batchUntil_ =
         s.pull()
       },
       onData(s, data) {
-        if (predicate(data)) {
-          if (buffer.length > 0) {
-            sink(Signal.DATA, buffer)
-          }
-
+        if (predicate(data) && buffer.length > 0) {
+          sink(Signal.DATA, buffer)
           buffer = [data]
         } else {
           buffer.push(data)

@@ -14,4 +14,18 @@ describe("batchUntil", () => {
 
     assert.deepEqual(result, [[1], [2, 3], [4, 5]])
   })
+
+  test("it works if first item matches", async () => {
+    const result = await pipe(
+      CB.fromIter([2, 3, 4, 5]),
+      CB.batchUntil((i) => i % 2 === 0),
+      CB.toArray,
+      CB.lastItemFrom,
+    )
+
+    assert.deepEqual(result, [
+      [2, 3],
+      [4, 5],
+    ])
+  })
 })
