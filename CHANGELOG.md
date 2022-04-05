@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.22.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.21.0...strict-callbag-basics@0.22.0) (2022-04-05)
+
+
+### Features
+
+* fromCallback ([3383847](https://github.com/tim-smart/strict-callbag-basics/commit/3383847a9cb9c58436f9efc3a8309ce07cb8e7ee))
+
+
+
+
+
 # [0.21.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.20.0...strict-callbag-basics@0.21.0) (2022-04-05)
 
 
