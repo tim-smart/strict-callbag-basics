@@ -10,5 +10,11 @@
     "strict": true
   },
 
-  "exclude": ["node_modules/", "perf/", "test/"]
+  "exclude": ["node_modules/", "perf/", "test/"],
+
+  "typedoc": {
+    "out": "docs",
+    "gitRevision": "main",
+    "entryPoints": ["./index.ts", "./Sink/index.ts"]
+  }
 }

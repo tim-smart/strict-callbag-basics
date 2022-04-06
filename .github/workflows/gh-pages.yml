@@ -1,0 +1,36 @@
+name: gh-pages
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: docs
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 16.x
+
+      - name: yarn
+        run: yarn install
+
+      - name: build
+        run: yarn prepublishOnly
+
+      - name: typedoc
+        run: yarn docs
+
+      - name: GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2.5.0
+        with:
+          build_dir: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
