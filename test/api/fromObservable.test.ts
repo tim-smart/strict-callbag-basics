@@ -6,7 +6,7 @@ import * as CB from "../../index"
 describe("fromObservable", () => {
   test("it works with rxjs observables", async () => {
     const results = await CB.pipe(
-      CB.fromObservable(Rx.of(1, 2, 3, 4, 5)),
+      CB.fromObservableP(Rx.of(1, 2, 3, 4, 5)),
       CB.toArray,
       CB.lastItemFrom,
     )

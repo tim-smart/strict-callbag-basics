@@ -6,14 +6,11 @@ type Cleanup = () => void
 
 type Register<E, A> = (sink: Sink<A, E>) => Cleanup | void
 
-/**
- * Create a push based stream using the given sink
- */
-export const async =
+export const asyncP =
   <A, E = unknown>(register: Register<E, A>): Source<A, E> =>
   (_, sink) => {
     let completed = false
-    let cleanup: Cleanup | void
+    let cleanup: Cleanup | void // eslint-disable-line
     let talkback: Talkback<never> | undefined
 
     const complete = () => {
@@ -47,7 +44,7 @@ export const async =
     }
   }
 
-export const asyncSink = <A, E = unknown>(): readonly [
+export const asyncSinkP = <A, E = unknown>(): readonly [
   sink: Sink<A, E>,
   source: Source<A, E>,
 ] => {
@@ -100,10 +97,10 @@ export const asyncSink = <A, E = unknown>(): readonly [
   return [parentSink, share(source)]
 }
 
-export const asyncEmitter = <A, E = unknown>(): readonly [
+export const asyncEmitterP = <A, E = unknown>(): readonly [
   sink: Emitter<A, E>,
   source: Source<A, E>,
 ] => {
-  const [sink, source] = asyncSink<A, E>()
+  const [sink, source] = asyncSinkP<A, E>()
   return [emitter(sink), source]
 }

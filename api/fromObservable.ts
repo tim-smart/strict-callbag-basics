@@ -1,3 +1,3 @@
 import cbFromObs from "callbag-from-obs"
 
-export const fromObservable = cbFromObs
+export const fromObservableP = cbFromObs

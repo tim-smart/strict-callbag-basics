@@ -9,7 +9,7 @@ use(ChaiPromise)
 describe("async", () => {
   test("it emits data", async () => {
     const result = await pipe(
-      CB.async<number>((sink) => {
+      CB.asyncP<number>((sink) => {
         sink(1, 1)
         sink(1, 2)
         sink(1, 3)
@@ -26,7 +26,7 @@ describe("async", () => {
     let clean = false
 
     const result = await pipe(
-      CB.async<number>((sink) => {
+      CB.asyncP<number>((sink) => {
         sink(1, 1)
         sink(1, 2)
         sink(1, 3)
@@ -45,7 +45,7 @@ describe("async", () => {
   test("it emits errors", async () => {
     try {
       await pipe(
-        CB.async<number, "fail">((sink) => {
+        CB.asyncP<number, "fail">((sink) => {
           sink(1, 1)
           sink(2, "fail")
         }),
@@ -58,7 +58,7 @@ describe("async", () => {
 
   test("it supports async gaps", async () => {
     const result = await pipe(
-      CB.async<number>((sink) => {
+      CB.asyncP<number>((sink) => {
         sink(1, 1)
         sink(1, 2)
         setTimeout(() => {
@@ -76,7 +76,7 @@ describe("async", () => {
 
 describe("asyncEmitter", () => {
   test("it emits the items", async () => {
-    const [sink, source] = CB.asyncSink<number, string>()
+    const [sink, source] = CB.asyncSinkP<number, string>()
 
     const [results] = await Promise.all([
       pipe(CB.toArray(source), CB.lastItemFrom),
@@ -95,7 +95,7 @@ describe("asyncEmitter", () => {
   })
 
   test("it buffers when there is no listener", async () => {
-    const [sink, source] = CB.asyncSink<number, string>()
+    const [sink, source] = CB.asyncSinkP<number, string>()
 
     sink(1, 1)
     assert.equal(await CB.firstItemFrom(source), 1)

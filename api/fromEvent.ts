@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Source } from "strict-callbag"
-import { async } from "./async"
+import { asyncP } from "./async"
 import { buffer_ } from "./buffer"
 
 interface NodeishEmitter {
@@ -25,12 +25,12 @@ interface DomishEmitter {
 
 type Emitter = NodeishEmitter | DomishEmitter
 
-export const fromEvent = <A = unknown>(
+export const fromEventP = <A = unknown>(
   self: Emitter,
   event: string,
   options?: unknown,
 ): Source<A, never> =>
-  async((sink) => {
+  asyncP((sink) => {
     const onData = (a: A) => sink(1, a)
 
     if ("addListener" in self) {
@@ -50,9 +50,9 @@ export const fromEvent = <A = unknown>(
     }
   })
 
-export const fromEventBuffered = <A = unknown>(
+export const fromEvent = <A = unknown>(
   self: Emitter,
   event: string,
   bufferSize = 16,
   options?: unknown,
-) => buffer_(fromEvent<A>(self, event, options), bufferSize)
+) => buffer_(fromEventP<A>(self, event, options), bufferSize)

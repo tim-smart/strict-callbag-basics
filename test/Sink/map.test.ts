@@ -5,7 +5,7 @@ import * as CBS from "../../Sink"
 
 describe("map", () => {
   test("transforms data", async () => {
-    const [sink, source] = CB.asyncSink<string, never>()
+    const [sink, source] = CB.asyncSinkP<string, never>()
 
     const numberSink = CBS.map_(sink, (i: number) => `Got: ${i}`)
     CB.run_(CB.of(1, 2, 3), numberSink)
