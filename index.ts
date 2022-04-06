@@ -25,6 +25,7 @@ export * from "./api/of"
 export * from "./api/resource"
 
 // operators
+export * from "./api/auditTime"
 export * from "./api/batch"
 export * from "./api/batchCount"
 export * from "./api/batchTime"
