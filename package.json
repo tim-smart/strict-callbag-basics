@@ -1,6 +1,6 @@
 {
   "name": "strict-callbag-basics",
-  "version": "0.15.1",
+  "version": "0.25.1",
   "description": "Common operators for strict-callbag",
   "main": "index.js",
   "files": [
@@ -12,6 +12,10 @@
     ".": {
       "import": "./esm/index.js",
       "require": "./index.js"
+    },
+    "./Sink": {
+      "import": "./esm/Sink/index.js",
+      "require": "./Sink/index.js"
     }
   },
   "repository": "https://github.com/tim-smart/strict-callbag-basics.git",
@@ -27,8 +31,11 @@
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.22",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
+    "eslint": "^8.12.0",
     "lerna": "^4.0.0",
     "mocha": "^9.2.2",
     "prettier": "^2.6.0",
@@ -37,11 +44,14 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
+    "callbag-buffer": "^1.0.0",
+    "callbag-buffer-time": "^1.0.0",
     "callbag-concat": "^1.2.1",
     "callbag-filter": "^1.1.0",
     "callbag-flatten": "^1.7.0",
     "callbag-from-iter": "^1.3.0",
     "callbag-from-obs": "^1.2.0",
+    "callbag-interval": "^1.2.0",
     "callbag-map": "^1.1.0",
     "callbag-scan": "^1.1.0",
     "callbag-share": "^1.3.0",

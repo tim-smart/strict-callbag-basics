@@ -39,6 +39,10 @@ export const make = <E, A>(
       pullIndex--
     }
 
+    if (sub.waiting()) {
+      pull()
+    }
+
     if (!subscriptions.length && parentEnded) {
       onEnd(parentError)
     } else {

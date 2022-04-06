@@ -13,6 +13,7 @@ export const resource =
       acc: Acc,
       index: number,
     ) => Source<readonly [Acc | NONE, Source<A, E>], E1>,
+    cleanup?: (acc: Acc) => void,
   ): Source<A, E | E1> =>
   (_, sink) => {
     let acc = initial
@@ -27,6 +28,7 @@ export const resource =
           return true
         }
 
+        cleanup?.(acc)
         return false
       }),
       chain(([_, source]) => source),

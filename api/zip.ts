@@ -27,12 +27,20 @@ export const zip_ =
         if (!latest) {
           dataA = NONE
           dataB = NONE
+
+          if (endA || endB) {
+            if (!endA) subB.cancel()
+            if (!endB) subA.cancel()
+            sink(Signal.END, undefined)
+          }
         }
       }
     }
 
     const maybeEnd = () => {
       if (endA && endB) {
+        sink(Signal.END, undefined)
+      } else if (!latest && dataA === NONE && dataB === NONE) {
         sink(Signal.END, undefined)
       }
     }
@@ -48,7 +56,7 @@ export const zip_ =
       onEnd(err) {
         endA = true
 
-        if (err || !latest) {
+        if (err) {
           subB.cancel()
           sink(Signal.END, err)
         } else {
@@ -67,7 +75,7 @@ export const zip_ =
       onEnd(err) {
         endB = true
 
-        if (err || !latest) {
+        if (err) {
           subA.cancel()
           sink(Signal.END, err)
         } else {

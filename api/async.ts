@@ -1,58 +1,42 @@
-import { Signal, Sink, Source } from "strict-callbag"
+import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { emitter, Emitter } from "./emitter"
 import { share } from "./share"
-
-export interface AsyncEmitter<E, A> {
-  data: (data: A) => void
-  error: (error: E) => void
-  end: () => void
-}
 
 type Cleanup = () => void
 
-type Register<E, A> = (emitter: AsyncEmitter<E, A>) => Cleanup | void
+type Register<E, A> = (sink: Sink<A, E>) => Cleanup | void
 
-/**
- * Create a push based stream using the register callbacks
- */
-export const async =
+export const asyncP =
   <A, E = unknown>(register: Register<E, A>): Source<A, E> =>
   (_, sink) => {
     let completed = false
-    let cleanup: Cleanup | void
+    let cleanup: Cleanup | void // eslint-disable-line
+    let talkback: Talkback<never> | undefined
 
     const complete = () => {
       completed = true
       cleanup?.()
     }
 
-    const data = (data: A) => {
-      if (completed) return
-      sink(Signal.DATA, data)
-    }
-
-    const error = (error: E) => {
-      if (completed) return
-      completed = true
-      complete()
-      sink(Signal.END, error)
-    }
-
-    const end = () => {
-      if (completed) return
-      complete()
-      sink(Signal.END, undefined)
-    }
-
     sink(Signal.START, (t) => {
+      talkback?.(t)
+
       if (t === Signal.END) {
         complete()
       }
     })
 
-    cleanup = register({
-      data,
-      end,
-      error,
+    cleanup = register((signal, data) => {
+      if (completed) throw new Error("sink ended")
+
+      if (signal === Signal.START) {
+        talkback = data
+      } else if (signal === Signal.DATA) {
+        sink(Signal.DATA, data)
+      } else if (signal === Signal.END) {
+        complete()
+        sink(Signal.END, data)
+      }
     })
 
     if (completed && cleanup) {
@@ -60,44 +44,40 @@ export const async =
     }
   }
 
-export const asyncEmitter = <A, E = unknown>(): readonly [
-  emitter: AsyncEmitter<E, A>,
+export const asyncSinkP = <A, E = unknown>(): readonly [
+  sink: Sink<A, E>,
   source: Source<A, E>,
 ] => {
   let buffer: A[] = []
   let completed = false
   let completedError: E | undefined
   let sink: Sink<A, E, unknown> | undefined
+  let parentTalkback: Talkback<never> | undefined
 
-  const data = (data: A) => {
-    if (completed) return
+  const parentSink: Sink<A, E> = (signal, data) => {
+    if (completed) throw new Error("sink ended")
 
-    if (sink) {
-      sink(Signal.DATA, data)
-    } else {
-      buffer.push(data)
+    if (signal === Signal.START) {
+      parentTalkback = data
+    } else if (signal === Signal.DATA) {
+      if (sink) {
+        sink(Signal.DATA, data)
+      } else {
+        buffer.push(data)
+      }
+    } else if (signal === Signal.END) {
+      completed = true
+      completedError = data
+      sink?.(Signal.END, data)
     }
-  }
-
-  const error = (error: E) => {
-    if (completed) return
-    completed = true
-    completedError = error
-
-    sink?.(Signal.END, error)
-  }
-
-  const end = () => {
-    if (completed) return
-    completed = true
-
-    sink?.(Signal.END, undefined)
   }
 
   const source: Source<A, E> = (_, data) => {
     sink = data
 
     sink(Signal.START, (signal) => {
+      parentTalkback?.(signal)
+
       if (signal === Signal.END) {
         sink = undefined
       }
@@ -114,5 +94,13 @@ export const asyncEmitter = <A, E = unknown>(): readonly [
     }
   }
 
-  return [{ data, error, end }, share(source)]
+  return [parentSink, share(source)]
+}
+
+export const asyncEmitterP = <A, E = unknown>(): readonly [
+  sink: Emitter<A, E>,
+  source: Source<A, E>,
+] => {
+  const [sink, source] = asyncSinkP<A, E>()
+  return [emitter(sink), source]
 }

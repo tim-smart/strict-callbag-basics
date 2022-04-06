@@ -16,4 +16,13 @@ describe("zip", () => {
       [3, "c"],
     ])
   })
+
+  test("it emits if source ends immediately", async () => {
+    const a = CB.fromCallback<number>((cb) => cb(undefined, 1))
+    const b = pipe(CB.fromIter(["a", "b", "c"]), CB.delay(0))
+
+    const result = await pipe(a, CB.zip(b), CB.toArray, CB.lastItemFrom)
+
+    assert.deepEqual(result, [[1, "a"]])
+  })
 })

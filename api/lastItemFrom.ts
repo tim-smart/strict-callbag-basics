@@ -1,8 +1,6 @@
 import { Source } from "strict-callbag"
+import { NONE } from "./none"
 import { subscribe } from "./subscribe"
-
-const NONE = Symbol()
-type NONE = typeof NONE
 
 export const lastItemFrom = <A>(self: Source<A, any>): Promise<A> =>
   new Promise((resolve, reject) => {

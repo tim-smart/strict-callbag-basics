@@ -2,9 +2,9 @@ import { Signal, Source, Talkback } from "strict-callbag"
 import { schedule } from "./_internal/schedule"
 
 interface Callbacks<A, E> {
-  onStart: () => void
-  onData: (data: A) => void
-  onEnd: (err?: E) => void
+  onStart: (this: void) => void
+  onData: (this: void, data: A) => void
+  onEnd: (this: void, err?: E) => void
 
   talkbackOverride?: (original: Talkback<any>) => Talkback<any>
 }
@@ -15,9 +15,10 @@ export const subscribe = <A, E>(
 ) => {
   let started = false
   let aborted = false
-  let pendingPulls = 0
+  let pullPending = false
   let talkback: Talkback<any>
   let onCancel: (() => void) | undefined
+  let waitingForData = false
 
   const listen = () => {
     if (started) return
@@ -34,12 +35,13 @@ export const subscribe = <A, E>(
 
       if (signal === Signal.START) {
         talkback = talkbackOverride ? talkbackOverride(data) : data
-        onStart()
-
-        while (--pendingPulls > 0) {
+        if (pullPending) {
           talkback(Signal.DATA)
         }
+
+        onStart()
       } else if (signal === Signal.DATA) {
+        waitingForData = false
         onData(data)
       } else if (signal === Signal.END) {
         aborted = true
@@ -63,14 +65,18 @@ export const subscribe = <A, E>(
   const pull = () => {
     if (aborted) return
 
+    waitingForData = true
+
     if (talkback) {
       talkback(Signal.DATA)
     } else {
-      pendingPulls++
+      pullPending = true
     }
   }
 
-  return { listen, cancel, pull }
+  const waiting = () => waitingForData
+
+  return { listen, cancel, pull, waiting }
 }
 
 export type Subscription = ReturnType<typeof subscribe>

@@ -1,22 +1,11 @@
-import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { Signal, Sink, Source } from "strict-callbag"
+import { noop } from "../Sink/noop"
 import { createPipe } from "./createPipe"
-
-const noop = (): Sink<any, any, never> => {
-  let talkback: Talkback<never>
-
-  return (signal, data) => {
-    if (signal === Signal.START) {
-      talkback = data
-      talkback(Signal.DATA)
-    } else if (signal === Signal.DATA) {
-      talkback(Signal.DATA)
-    }
-  }
-}
 
 export const run_ = <A, E, EO>(
   self: Source<A, E>,
   sink: Sink<A, E, EO> = noop(),
+  ignoreEnd = false,
 ): Promise<void> =>
   new Promise((resolve, reject) => {
     createPipe(self, sink, {
@@ -30,7 +19,9 @@ export const run_ = <A, E, EO>(
         sink(Signal.DATA, data)
       },
       onEnd(err) {
-        sink(Signal.END, err)
+        if (err || ignoreEnd === false) {
+          sink(Signal.END, err)
+        }
 
         if (err) {
           reject(err)
@@ -49,6 +40,6 @@ export const run_ = <A, E, EO>(
   })
 
 export const run =
-  <A, E, EO>(sink?: Sink<A, E, EO>) =>
+  <A, E, EO>(sink?: Sink<A, E, EO>, ignoreEnd?: boolean) =>
   (self: Source<A, E>) =>
-    run_(self, sink)
+    run_(self, sink, ignoreEnd)

@@ -10,7 +10,9 @@ export const toArray =
       onStart(s) {
         s.pull()
       },
-      onRequest() {},
+      onRequest() {
+        //
+      },
       onData(s, data) {
         array.push(data)
         s.pull()

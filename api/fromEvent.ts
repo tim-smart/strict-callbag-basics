@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Source } from "strict-callbag"
-import { async } from "./async"
+import { asyncP } from "./async"
 import { buffer_ } from "./buffer"
 
 interface NodeishEmitter {
@@ -14,7 +15,7 @@ interface DomishEmitter {
   addEventListener(
     eventName: string,
     listener: (...args: any[]) => unknown,
-    options?: boolean | AddEventListenerOptions,
+    options?: unknown,
   ): unknown
   removeEventListener(
     eventName: string,
@@ -24,32 +25,34 @@ interface DomishEmitter {
 
 type Emitter = NodeishEmitter | DomishEmitter
 
-export const fromEvent = <A = unknown>(
+export const fromEventP = <A = unknown>(
   self: Emitter,
   event: string,
-  options?: boolean | AddEventListenerOptions,
+  options?: unknown,
 ): Source<A, never> =>
-  async((emit) => {
+  asyncP((sink) => {
+    const onData = (a: A) => sink(1, a)
+
     if ("addListener" in self) {
-      self.addListener(event, emit.data)
+      self.addListener(event, onData)
     } else if ("addEventListener" in self) {
-      self.addEventListener(event, emit.data, options)
+      self.addEventListener(event, onData, options)
     } else {
       throw new Error("fromEvent: not a valid event emitter")
     }
 
     return () => {
       if ("removeListener" in self) {
-        self.removeListener(event, emit.data)
+        self.removeListener(event, onData)
       } else {
-        self.removeEventListener(event, emit.data)
+        self.removeEventListener(event, onData)
       }
     }
   })
 
-export const fromEventBuffered = <A = unknown>(
+export const fromEvent = <A = unknown>(
   self: Emitter,
   event: string,
   bufferSize = 16,
-  options?: boolean | AddEventListenerOptions,
-) => buffer_(fromEvent<A>(self, event, options), bufferSize)
+  options?: unknown,
+) => buffer_(fromEventP<A>(self, event, options), bufferSize)
