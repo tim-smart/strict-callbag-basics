@@ -3,6 +3,10 @@
 Operators for the callbag streaming standard, on top of the strict-callbag
 types.
 
+## API docs
+
+https://tim-smart.github.io/strict-callbag-basics/
+
 ## Push based streams
 
 Most stream and operators in this library are pull-based.
