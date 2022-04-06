@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.24.0...strict-callbag-basics@0.24.1) (2022-04-06)
+
+
+### Bug Fixes
+
+* queue up pending pulls in subscribe ([15da38f](https://github.com/tim-smart/strict-callbag-basics/commit/15da38fa923a18d3f02bfa389887355af2721edf))
+
+
+
+
+
 # [0.24.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.23.2...strict-callbag-basics@0.24.0) (2022-04-06)
 
 
