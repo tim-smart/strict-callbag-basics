@@ -33,11 +33,11 @@ export const subscribe = <A, E>(
 
       if (signal === Signal.START) {
         talkback = talkbackOverride ? talkbackOverride(data) : data
-        onStart()
-
         if (pendingPulls > 0) {
           talkback(Signal.DATA)
         }
+
+        onStart()
       } else if (signal === Signal.DATA) {
         onData(data)
 

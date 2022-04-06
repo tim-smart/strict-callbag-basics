@@ -17,7 +17,12 @@ describe("buffer", () => {
   test("bufferSize drops extra items", async () => {
     const source = CB.share(CB.fromIter([1, 2, 3, 4, 5]))
     const [result] = await Promise.all([
-      pipe(source, CB.buffer(2), CB.delay(5), CB.lastItemFrom),
+      pipe(
+        source,
+        CB.buffer(2),
+        CB.chain((i) => CB.delay_(CB.of(i), 10)),
+        CB.lastItemFrom,
+      ),
       CB.run_(source),
     ])
 

@@ -73,12 +73,8 @@ export const buffer_ =
       },
       onData(s, data) {
         if (pendingPulls > 0) {
-          sink(Signal.DATA, data)
           pendingPulls--
-
-          if (pendingPulls > 0) {
-            s.pull()
-          }
+          sink(Signal.DATA, data)
         } else if (buffer.length - bufferIndex < bufferSize) {
           buffer.push(data)
         }
