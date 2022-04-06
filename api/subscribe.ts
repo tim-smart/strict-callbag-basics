@@ -14,9 +14,10 @@ export const subscribe = <A, E>(
 ) => {
   let started = false
   let aborted = false
-  let pendingPulls = 0
+  let pullPending = false
   let talkback: Talkback<any>
   let onCancel: (() => void) | undefined
+  let waitingForData = false
 
   const listen = () => {
     if (started) return
@@ -33,18 +34,14 @@ export const subscribe = <A, E>(
 
       if (signal === Signal.START) {
         talkback = talkbackOverride ? talkbackOverride(data) : data
-        if (pendingPulls > 0) {
+        if (pullPending) {
           talkback(Signal.DATA)
         }
 
         onStart()
       } else if (signal === Signal.DATA) {
+        waitingForData = false
         onData(data)
-
-        if (pendingPulls > 0) pendingPulls--
-        if (pendingPulls > 0) {
-          talkback(Signal.DATA)
-        }
       } else if (signal === Signal.END) {
         aborted = true
         onEnd(data)
@@ -67,14 +64,18 @@ export const subscribe = <A, E>(
   const pull = () => {
     if (aborted) return
 
-    pendingPulls++
+    waitingForData = true
 
-    if (talkback && pendingPulls === 1) {
+    if (talkback) {
       talkback(Signal.DATA)
+    } else {
+      pullPending = true
     }
   }
 
-  return { listen, cancel, pull }
+  const waiting = () => waitingForData
+
+  return { listen, cancel, pull, waiting }
 }
 
 export type Subscription = ReturnType<typeof subscribe>
