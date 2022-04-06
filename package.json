@@ -25,7 +25,8 @@
   "scripts": {
     "prepublishOnly": "yarn clean && tsc && tsc -p ./tsconfig.esm.json",
     "clean": "git clean -fx -e node_modules -- '*.js' '*.d.ts'",
-    "test": "mocha -r ts-node/register test/**/*.test.ts"
+    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "docs": "rm -rf docs && typedoc index.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",

@@ -14,7 +14,6 @@
 
   "typedoc": {
     "out": "docs",
-    "gitRevision": "main",
-    "entryPoints": ["./index.ts", "./Sink/index.ts"]
+    "gitRevision": "main"
   }
 }
