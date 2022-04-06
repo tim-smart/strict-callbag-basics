@@ -35,11 +35,16 @@ export const subscribe = <A, E>(
         talkback = talkbackOverride ? talkbackOverride(data) : data
         onStart()
 
-        while (--pendingPulls > 0) {
+        if (pendingPulls > 0) {
           talkback(Signal.DATA)
         }
       } else if (signal === Signal.DATA) {
         onData(data)
+
+        if (pendingPulls > 0) pendingPulls--
+        if (pendingPulls > 0) {
+          talkback(Signal.DATA)
+        }
       } else if (signal === Signal.END) {
         aborted = true
         onEnd(data)
@@ -62,10 +67,10 @@ export const subscribe = <A, E>(
   const pull = () => {
     if (aborted) return
 
-    if (talkback) {
+    pendingPulls++
+
+    if (talkback && pendingPulls === 1) {
       talkback(Signal.DATA)
-    } else {
-      pendingPulls++
     }
   }
 
