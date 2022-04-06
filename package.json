@@ -6,6 +6,7 @@
   "files": [
     "**/*.ts",
     "**/*.js",
+    "!docs/**/*",
     "!perf/**/*"
   ],
   "exports": {
@@ -66,5 +67,5 @@
   "resolutions": {
     "symbol-observable": "^4.0.0"
   },
-  "gitHead": "b65265dbd79faf4d5d4adcf9ef1e310d74a38f30"
+  "gitHead": "df2eabe14510abf9ddf89428faeef5ece2068023"
 }
