@@ -28,4 +28,15 @@ describe("batchUntil", () => {
       [4, 5],
     ])
   })
+
+  test("inclusive mode", async () => {
+    const result = await pipe(
+      CB.fromIter([2, 3, 4, 5]),
+      CB.batchUntil((i) => i % 2 === 0, true),
+      CB.toArray,
+      CB.lastItemFrom,
+    )
+
+    assert.deepEqual(result, [[2], [3, 4], [5]])
+  })
 })

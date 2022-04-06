@@ -5,6 +5,7 @@ export const batchUntil_ =
   <A, E>(
     self: Source<A, E>,
     predicate: (value: A) => boolean,
+    inclusive = false,
   ): Source<A[], E> =>
   (_, sink) => {
     let buffer: A[] = []
@@ -17,9 +18,15 @@ export const batchUntil_ =
         s.pull()
       },
       onData(s, data) {
-        if (predicate(data) && buffer.length > 0) {
-          sink(Signal.DATA, buffer)
-          buffer = [data]
+        if (predicate(data) && (inclusive || buffer.length > 0)) {
+          if (inclusive) {
+            buffer.push(data)
+            sink(Signal.DATA, buffer)
+            buffer = []
+          } else {
+            sink(Signal.DATA, buffer)
+            buffer = [data]
+          }
         } else {
           buffer.push(data)
           s.pull()
@@ -40,6 +47,6 @@ export const batchUntil_ =
   }
 
 export const batchUntil =
-  <A>(predicate: (value: A) => boolean) =>
+  <A>(predicate: (value: A) => boolean, inclusive?: boolean) =>
   <E>(self: Source<A, E>) =>
-    batchUntil_(self, predicate)
+    batchUntil_(self, predicate, inclusive)
