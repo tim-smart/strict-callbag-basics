@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.24.2...strict-callbag-basics@0.25.0) (2022-04-06)
+
+
+### Code Refactoring
+
+* add P suffix to push based factories / operators ([d5fc35c](https://github.com/tim-smart/strict-callbag-basics/commit/d5fc35c6b7b0b5c16742138fe8f7e689017f2c80))
+
+
+### Features
+
+* auditTime ([28679db](https://github.com/tim-smart/strict-callbag-basics/commit/28679db96c3c1f99441fa34e1ebbb05389d70434))
+
+
+### BREAKING CHANGES
+
+* some functions have been renamed
+
+
+
+
+
 ## [0.24.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.24.1...strict-callbag-basics@0.24.2) (2022-04-06)
 
 
