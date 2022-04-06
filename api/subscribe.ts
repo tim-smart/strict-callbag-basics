@@ -1,4 +1,5 @@
 import { Signal, Source, Talkback } from "strict-callbag"
+import { schedule } from "./_internal/schedule"
 
 interface Callbacks<A, E> {
   onStart: () => void
@@ -42,7 +43,7 @@ export const subscribe = <A, E>(
         onData(data)
       } else if (signal === Signal.END) {
         aborted = true
-        onEnd(data)
+        schedule(() => onEnd(data))
       }
     })
   }
