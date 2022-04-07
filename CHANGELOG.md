@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.27.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.26.1-alpha.0...strict-callbag-basics@0.27.0) (2022-04-07)
+
+
+### Bug Fixes
+
+* groupBy should not drop items ([af68bb9](https://github.com/tim-smart/strict-callbag-basics/commit/af68bb9976c0a2c690d9c77e5dd23ca381512b28))
+
+
+
+
+
 ## [0.26.1-alpha.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.26.0...strict-callbag-basics@0.26.1-alpha.0) (2022-04-07)
 
 
