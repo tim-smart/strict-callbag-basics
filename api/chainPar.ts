@@ -27,13 +27,13 @@ export const chainPar_ =
     createPipe(self, sink, {
       onStart(s) {
         sub = s
-        lb.pull()
         maybePullInner()
       },
 
       onData(_, data) {
         const inner = fab(data)
         lb.add(inner)
+        maybePullInner()
       },
 
       onEnd(err) {
