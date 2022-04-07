@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.25.6-alpha.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.6-alpha.0...strict-callbag-basics@0.25.6-alpha.1) (2022-04-07)
+
+
+### Bug Fixes
+
+* make sure chainPar saturates concurrency ([92c3815](https://github.com/tim-smart/strict-callbag-basics/commit/92c38153887ace55b85398c04031fc5106e0752f))
+
+
+
+
+
 ## [0.25.6-alpha.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.5...strict-callbag-basics@0.25.6-alpha.0) (2022-04-07)
 
 **Note:** Version bump only for package strict-callbag-basics
