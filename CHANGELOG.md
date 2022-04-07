@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.27.0...strict-callbag-basics@0.27.1) (2022-04-07)
+
+
+### Bug Fixes
+
+* buffer race condition ([e672880](https://github.com/tim-smart/strict-callbag-basics/commit/e672880597f0b83e00850cffa529b92c0dd3f11f))
+
+
+
+
+
 # [0.27.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.26.1-alpha.0...strict-callbag-basics@0.27.0) (2022-04-07)
 
 
