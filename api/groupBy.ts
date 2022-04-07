@@ -24,9 +24,9 @@ export const groupBy_ =
         if (!emitted.has(key)) {
           const inner = pipe(
             shared,
-            buffer(),
             filter((a) => keyFn(a) === key),
             startWith(data),
+            buffer(),
           )
           emitted.set(key, inner)
           sink(Signal.DATA, [inner, key, data])

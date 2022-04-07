@@ -10,7 +10,7 @@
     "strict": true
   },
 
-  "exclude": ["node_modules/", "docs/", "perf/", "test/"],
+  "exclude": ["node_modules/", "docs/", "perf/"],
 
   "typedoc": {
     "out": "docs",
