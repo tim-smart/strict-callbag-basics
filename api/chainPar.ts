@@ -34,7 +34,6 @@ export const chainPar_ =
       onData(_, data) {
         const inner = fab(data)
         lb.add(inner)
-        maybePullInner()
       },
 
       onEnd(err) {
@@ -42,7 +41,11 @@ export const chainPar_ =
       },
 
       onRequest() {
-        lb.pull()
+        if (lb.idle() === 0) {
+          maybePullInner()
+        } else {
+          lb.pull()
+        }
       },
 
       onAbort() {
