@@ -1,9 +1,15 @@
 import { Signal, Source } from "strict-callbag"
+import { buffer, buffer_ } from "./buffer"
 import { createPipe } from "./createPipe"
 import { Subscription } from "./subscribe"
 import * as LB from "./_internal/lb"
 
-export const chainPar_ =
+/**
+ * A semi-push stream.
+ *
+ * It eagerly loads items until the `concurrency` target is met.
+ */
+export const chainParP_ =
   <E, E1, A, B>(
     self: Source<A, E>,
     fab: (a: A) => Source<B, E1>,
@@ -53,7 +59,19 @@ export const chainPar_ =
       },
     })
   }
+
+export const chainPar_ = <E, E1, A, B>(
+  self: Source<A, E>,
+  fab: (a: A) => Source<B, E1>,
+  concurrency?: number,
+) => buffer_(chainParP_(self, fab, concurrency))
+
+export const chainParP =
+  <E1, A, B>(fab: (a: A) => Source<B, E1>, concurrency?: number) =>
+  <E>(self: Source<A, E>) =>
+    chainParP_(self, fab, concurrency)
+
 export const chainPar =
   <E1, A, B>(fab: (a: A) => Source<B, E1>, concurrency?: number) =>
-  <E>(self: Source<A, E>): Source<B, E | E1> =>
+  <E>(self: Source<A, E>) =>
     chainPar_(self, fab, concurrency)
