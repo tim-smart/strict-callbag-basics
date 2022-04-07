@@ -14,7 +14,7 @@ export const buffer_ =
   (_, sink) => {
     let sourceEnded = false
     let sourceError: E | undefined
-    let pendingPulls = 0
+    let waitingForData = false
 
     let buffer: A[] = []
     let bufferIndex = 0
@@ -22,7 +22,6 @@ export const buffer_ =
     function cleanup() {
       buffer = []
       bufferIndex = 0
-      pendingPulls = 0
     }
 
     function maybeEnd() {
@@ -51,7 +50,7 @@ export const buffer_ =
 
     createPipe(self, sink, {
       onStart(s) {
-        pendingPulls++
+        waitingForData = true
         s.pull()
       },
       onRequest(s) {
@@ -60,20 +59,17 @@ export const buffer_ =
         if (next === EOF) {
           maybeEnd()
 
-          if (!sourceEnded) {
-            pendingPulls++
-
-            if (pendingPulls === 1) {
-              s.pull()
-            }
+          if (!sourceEnded && !waitingForData) {
+            waitingForData = true
+            s.pull()
           }
         } else {
           sink(Signal.DATA, next)
         }
       },
-      onData(s, data) {
-        if (pendingPulls > 0) {
-          pendingPulls--
+      onData(_s, data) {
+        if (waitingForData) {
+          waitingForData = false
           sink(Signal.DATA, data)
         } else if (buffer.length - bufferIndex < bufferSize) {
           buffer.push(data)
