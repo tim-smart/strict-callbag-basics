@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.26.1-alpha.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.26.0...strict-callbag-basics@0.26.1-alpha.0) (2022-04-07)
+
+
+### Bug Fixes
+
+* add buffer to groupBy ([bbdf244](https://github.com/tim-smart/strict-callbag-basics/commit/bbdf244cda30da4de9d66814e9b533d1a2353022))
+
+
+
+
+
 # [0.26.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.6-alpha.1...strict-callbag-basics@0.26.0) (2022-04-07)
 
 
