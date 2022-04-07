@@ -1,8 +1,10 @@
 import { Signal, Source } from "strict-callbag"
+import { buffer } from "./buffer"
 import { createPipe } from "./createPipe"
-import { filter_ } from "./filter"
+import { filter } from "./filter"
+import { pipe } from "./pipe"
 import { share } from "./share"
-import { startWith_ } from "./startWith"
+import { startWith } from "./startWith"
 
 export const groupBy_ =
   <A, E, K>(
@@ -20,9 +22,11 @@ export const groupBy_ =
         const key = keyFn(data)
 
         if (!emitted.has(key)) {
-          const inner = startWith_(
-            filter_(shared, (a) => keyFn(a) === key),
-            data,
+          const inner = pipe(
+            shared,
+            buffer(),
+            filter((a) => keyFn(a) === key),
+            startWith(data),
           )
           emitted.set(key, inner)
           sink(Signal.DATA, [inner, key, data])
