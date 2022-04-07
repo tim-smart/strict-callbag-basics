@@ -4,7 +4,7 @@ import { describe, test } from "mocha"
 import * as CB from "../../index"
 
 describe("groupBy", () => {
-  test("corrwctly groups items", async () => {
+  test("correctly groups items", async () => {
     const result = await pipe(
       CB.fromIter([1, 2, 3, 4, 5]),
       CB.groupBy((i) => i % 2),
