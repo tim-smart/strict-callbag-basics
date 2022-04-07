@@ -71,7 +71,7 @@ export const buffer_ =
           sink(Signal.DATA, next)
         }
       },
-      onData(s, data) {
+      onData(_s, data) {
         if (pendingPulls > 0) {
           pendingPulls--
           sink(Signal.DATA, data)
