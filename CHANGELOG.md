@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.25.5](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.4...strict-callbag-basics@0.25.5) (2022-04-07)
+
+
+### Bug Fixes
+
+* make fromThunk lazy ([8810c73](https://github.com/tim-smart/strict-callbag-basics/commit/8810c73c880a96c74e7a9de9bc8c0c9562928ed1))
+
+
+
+
+
 ## [0.25.4](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.3...strict-callbag-basics@0.25.4) (2022-04-06)
 
 **Note:** Version bump only for package strict-callbag-basics
