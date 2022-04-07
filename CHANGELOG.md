@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.26.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.6-alpha.1...strict-callbag-basics@0.26.0) (2022-04-07)
+
+
+### Bug Fixes
+
+* add buffer after chainPar to make is purely pull based ([865bd34](https://github.com/tim-smart/strict-callbag-basics/commit/865bd34ef80da59dc74c296230caf4afbd95ccf8))
+
+
+
+
+
 ## [0.25.6-alpha.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.25.6-alpha.0...strict-callbag-basics@0.25.6-alpha.1) (2022-04-07)
 
 
