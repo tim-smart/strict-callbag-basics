@@ -18,29 +18,31 @@ export const buffer_ =
 
     let buffer: A[] = []
     let bufferIndex = 0
+    let bufferCount = 0
 
     function cleanup() {
       buffer = []
       bufferIndex = 0
+      bufferCount = 0
     }
 
     function maybeEnd() {
-      if (sourceEnded && buffer.length === 0) {
+      if (sourceEnded && bufferCount === 0) {
         sink(Signal.END, sourceError)
       }
     }
 
     function pull(): A | EOF {
-      const length = buffer.length
-      if (bufferIndex >= length) {
+      if (bufferCount === 0) {
         return EOF
       }
 
       const item = buffer[bufferIndex]
       buffer[bufferIndex] = undefined as any
       bufferIndex++
+      bufferCount--
 
-      if (bufferIndex >= length) {
+      if (bufferCount === 0) {
         buffer = []
         bufferIndex = 0
       }
@@ -75,8 +77,9 @@ export const buffer_ =
         if (waitingForData) {
           waitingForData = false
           sink(Signal.DATA, data)
-        } else if (buffer.length - bufferIndex < bufferSize) {
+        } else if (bufferCount < bufferSize) {
           buffer.push(data)
+          bufferCount++
         }
       },
       onEnd(err) {
