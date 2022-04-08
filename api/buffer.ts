@@ -10,7 +10,7 @@ type EOF = typeof EOF
  * `bufferSize` configures the amount of items to keep in the queue
  */
 export const buffer_ =
-  <A, E>(self: Source<A, E>, bufferSize = 16): Source<A, E> =>
+  <A, E>(self: Source<A, E>, bufferSize = 16, eager = false): Source<A, E> =>
   (_, sink) => {
     let sourceEnded = false
     let sourceError: E | undefined
@@ -59,12 +59,16 @@ export const buffer_ =
         if (next === EOF) {
           maybeEnd()
 
-          if (!sourceEnded && !waitingForData) {
+          if (!sourceEnded && (!waitingForData || eager)) {
             waitingForData = true
             s.pull()
           }
         } else {
           sink(Signal.DATA, next)
+
+          if (eager) {
+            s.pull()
+          }
         }
       },
       onData(_s, data) {
@@ -92,6 +96,6 @@ export const buffer_ =
  * `bufferSize` configures the amount of items to keep in the queue
  */
 export const buffer =
-  (bufferSize?: number) =>
+  (bufferSize?: number, eager?: boolean) =>
   <A, E>(self: Source<A, E>) =>
-    buffer_(self, bufferSize)
+    buffer_(self, bufferSize, eager)

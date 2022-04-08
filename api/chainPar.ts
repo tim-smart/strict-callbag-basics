@@ -64,7 +64,8 @@ export const chainPar_ = <E, E1, A, B>(
   self: Source<A, E>,
   fab: (a: A) => Source<B, E1>,
   concurrency?: number,
-) => buffer_(chainParP_(self, fab, concurrency))
+  bufferSize?: number,
+) => buffer_(chainParP_(self, fab, concurrency), bufferSize, true)
 
 export const chainParP =
   <E1, A, B>(fab: (a: A) => Source<B, E1>, concurrency?: number) =>
@@ -72,6 +73,10 @@ export const chainParP =
     chainParP_(self, fab, concurrency)
 
 export const chainPar =
-  <E1, A, B>(fab: (a: A) => Source<B, E1>, concurrency?: number) =>
+  <E1, A, B>(
+    fab: (a: A) => Source<B, E1>,
+    concurrency?: number,
+    bufferSize?: number,
+  ) =>
   <E>(self: Source<A, E>) =>
-    chainPar_(self, fab, concurrency)
+    chainPar_(self, fab, concurrency, bufferSize)
