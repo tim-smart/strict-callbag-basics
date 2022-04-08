@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.28.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.27.2...strict-callbag-basics@0.28.0) (2022-04-08)
+
+
+### Features
+
+* add eager mode to buffer ([d38e75c](https://github.com/tim-smart/strict-callbag-basics/commit/d38e75c759c76f7e4cb9871a48a4b15ccd9ca9cf))
+
+
+
+
+
 ## [0.27.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.27.1...strict-callbag-basics@0.27.2) (2022-04-07)
 
 **Note:** Version bump only for package strict-callbag-basics
