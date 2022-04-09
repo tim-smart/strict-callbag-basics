@@ -14,7 +14,7 @@ export const fromThunk =
         }
 
         if (!unsubed) {
-          sink(Signal.END, undefined)
+          sink(Signal.END, undefined as never)
         }
       } else if (signal === Signal.END) {
         unsubed = true

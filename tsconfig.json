@@ -4,13 +4,13 @@
     "lib": ["ESNext"],
     "target": "ES2022",
     "module": "CommonJS",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true
   },
 
-  "exclude": ["node_modules/", "docs/", "perf/"],
+  "exclude": ["node_modules/", "docs/"],
 
   "typedoc": {
     "out": "docs",

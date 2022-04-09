@@ -5,14 +5,13 @@ export const make = <E, A>(
   onData: (a: A) => void,
   onEnd: (e?: E) => void,
   onChildEnd: () => void,
+  onFailedPull?: () => void,
 ) => {
   let parentEnded = false
   let parentError: E | undefined
 
-  const waiting = new Set<Subscription>()
-  const idle = new Set<Subscription>()
-
-  const size = () => waiting.size + idle.size
+  const subscriptions = new Set<Subscription>()
+  const pullQueue = new Set<Subscription>()
 
   const add = (source: Source<A, E>) => {
     const sub = subscribe(source, {
@@ -20,8 +19,7 @@ export const make = <E, A>(
         sub.pull()
       },
       onData(data) {
-        waiting.delete(sub)
-        idle.add(sub)
+        pullQueue.add(sub)
         onData(data)
       },
       onEnd(err) {
@@ -33,18 +31,22 @@ export const make = <E, A>(
       },
     })
 
-    waiting.add(sub)
+    subscriptions.add(sub)
     sub.listen()
   }
 
   const endSubscription = (sub: Subscription) => {
-    waiting.delete(sub)
-    idle.delete(sub)
+    subscriptions.delete(sub)
+    pullQueue.delete(sub)
 
-    if (!size() && parentEnded) {
+    if (!subscriptions.size && parentEnded) {
       onEnd(parentError)
     } else {
       onChildEnd()
+
+      if (sub.waiting()) {
+        pull()
+      }
     }
   }
 
@@ -52,16 +54,16 @@ export const make = <E, A>(
     parentEnded = true
     parentError = err
 
-    if (!size()) {
+    if (!subscriptions.size) {
       onEnd()
     }
   }
 
   const abort = (from?: Subscription) => {
     // eslint-disable-next-line
-    ;[...waiting, ...idle].forEach((sub) => from !== sub && sub.cancel())
-    waiting.clear()
-    idle.clear()
+    subscriptions.forEach((sub) => from !== sub && sub.cancel())
+    subscriptions.clear()
+    pullQueue.clear()
   }
 
   const error = (err: E, sub?: Subscription) => {
@@ -70,16 +72,14 @@ export const make = <E, A>(
   }
 
   const pull = () => {
-    if (!size()) {
+    if (!pullQueue.size) {
+      onFailedPull?.()
       return
     }
 
-    if (idle.size) {
-      const sub = idle[Symbol.iterator]().next().value as Subscription
-      idle.delete(sub)
-      waiting.add(sub)
-      sub.pull()
-    }
+    const head = pullQueue.values().next().value as Subscription
+    pullQueue.delete(head)
+    head.pull()
   }
 
   return {
@@ -87,8 +87,6 @@ export const make = <E, A>(
     add,
     end,
     abort,
-    size,
-    waiting: () => waiting.size,
-    idle: () => idle.size,
+    size: () => subscriptions.size,
   } as const
 }

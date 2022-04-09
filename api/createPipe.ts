@@ -44,9 +44,7 @@ export const createPipe = <A, EI, EO = never>(
           onData(data) {
             onData(sub, data)
           },
-          onEnd(err) {
-            onEnd(err)
-          },
+          onEnd,
           talkbackOverride,
         })
 

@@ -1,8 +1,7 @@
 import { Signal, Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
-
-const EOF = Symbol()
-type EOF = typeof EOF
+import { NONE } from "./none"
+import { Queue } from "./_internal/queue"
 
 /**
  * Converts any type of stream into a pull based one.
@@ -10,44 +9,26 @@ type EOF = typeof EOF
  * `bufferSize` configures the amount of items to keep in the queue
  */
 export const buffer_ =
-  <A, E>(self: Source<A, E>, bufferSize = 16, eager = false): Source<A, E> =>
+  <A, E>(
+    self: Source<A, E>,
+    bufferSize: number | undefined = 16,
+    eager = false,
+  ): Source<A, E> =>
   (_, sink) => {
     let sourceEnded = false
     let sourceError: E | undefined
     let waitingForData = false
 
-    let buffer: A[] = []
-    let bufferIndex = 0
-    let bufferCount = 0
+    const buffer = new Queue<A>(bufferSize)
 
     function cleanup() {
-      buffer = []
-      bufferIndex = 0
-      bufferCount = 0
+      buffer.clear()
     }
 
     function maybeEnd() {
-      if (sourceEnded && bufferCount === 0) {
+      if (sourceEnded && buffer.size === 0) {
         sink(Signal.END, sourceError)
       }
-    }
-
-    function pull(): A | EOF {
-      if (bufferCount === 0) {
-        return EOF
-      }
-
-      const item = buffer[bufferIndex]
-      buffer[bufferIndex] = undefined as any
-      bufferIndex++
-      bufferCount--
-
-      if (bufferCount === 0) {
-        buffer = []
-        bufferIndex = 0
-      }
-
-      return item
     }
 
     createPipe(self, sink, {
@@ -56,9 +37,9 @@ export const buffer_ =
         s.pull()
       },
       onRequest(s) {
-        const next = pull()
+        const next = buffer.shift()
 
-        if (next === EOF) {
+        if (next === NONE) {
           maybeEnd()
 
           if (!sourceEnded && (!waitingForData || eager)) {
@@ -77,9 +58,8 @@ export const buffer_ =
         if (waitingForData) {
           waitingForData = false
           sink(Signal.DATA, data)
-        } else if (bufferCount < bufferSize) {
+        } else {
           buffer.push(data)
-          bufferCount++
         }
       },
       onEnd(err) {

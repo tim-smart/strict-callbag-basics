@@ -8,7 +8,7 @@ export const mergeIdentical =
       (data) => sink(Signal.DATA, data),
       (err) => sink(Signal.END, err),
       () => {
-        lb.pull()
+        //
       },
     )
 

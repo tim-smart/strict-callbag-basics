@@ -1,5 +1,5 @@
 import { Signal, Source } from "strict-callbag"
-import { buffer, buffer_ } from "./buffer"
+import { buffer_ } from "./buffer"
 import { createPipe } from "./createPipe"
 import { Subscription } from "./subscribe"
 import * as LB from "./_internal/lb"
@@ -19,7 +19,8 @@ export const chainParP_ =
     const lb = LB.make<E | E1, B>(
       (a) => sink(Signal.DATA, a),
       (e) => sink(Signal.END, e),
-      () => maybePullInner(),
+      maybePullInner,
+      maybePullInner,
     )
 
     let sub: Subscription
@@ -42,18 +43,8 @@ export const chainParP_ =
         maybePullInner()
       },
 
-      onEnd(err) {
-        lb.end(err)
-      },
-
-      onRequest() {
-        if (lb.idle() === 0) {
-          maybePullInner()
-        } else {
-          lb.pull()
-        }
-      },
-
+      onEnd: lb.end,
+      onRequest: lb.pull,
       onAbort() {
         lb.abort()
       },
