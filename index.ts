@@ -4,6 +4,7 @@ export * from "strict-callbag"
 export * from "./api/createPipe"
 export * from "./api/emitter"
 export * from "./api/none"
+export * from "./api/overridePull"
 export * from "./api/pipe"
 export * from "./api/subscribe"
 
