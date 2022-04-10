@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 import { NONE } from "./none"
 
@@ -19,7 +19,7 @@ export const auditTimeP_ =
       if (lastItem !== NONE) {
         const data = lastItem
         lastItem = NONE
-        sink(Signal.DATA, data)
+        sink(1, data)
       }
 
       timeout = undefined
@@ -44,7 +44,7 @@ export const auditTimeP_ =
       onEnd(err) {
         cleanup()
         maybeEmit()
-        sink(Signal.END, err)
+        sink(2, err)
       },
       onAbort() {
         cleanup()

@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 
 export const fromPromise_ =
   <A, E = unknown>(
@@ -9,25 +9,25 @@ export const fromPromise_ =
     let promise: Promise<unknown> | undefined
     let aborted = false
 
-    sink(Signal.START, (signal) => {
-      if (signal === Signal.DATA) {
+    sink(0, (signal) => {
+      if (signal === 1) {
         if (promise) return
 
         try {
           promise = f()
             .then((a) => {
               if (aborted) return
-              sink(Signal.DATA, a)
-              sink(Signal.END, undefined)
+              sink(1, a)
+              sink(2, undefined)
             })
             .catch((err) => {
               if (aborted) return
-              sink(Signal.END, onError(err))
+              sink(2, onError(err))
             })
         } catch (err) {
-          sink(Signal.END, onError(err))
+          sink(2, onError(err))
         }
-      } else if (signal === Signal.END) {
+      } else if (signal === 2) {
         aborted = true
       }
     })

@@ -8,19 +8,19 @@ describe("error", () => {
     const signals: Signal[] = []
     let err: any
 
-    CB.error("fail")(Signal.START, (signal, data) => {
+    CB.error("fail")(0, (signal, data) => {
       signals.push(signal)
 
-      if (signal === Signal.START) {
-        data(Signal.DATA)
-      } else if (signal === Signal.END) {
+      if (signal === 0) {
+        data(1)
+      } else if (signal === 2) {
         err = data
       }
     })
 
     await new Promise((r) => setTimeout(r, 0))
 
-    assert.deepEqual(signals, [Signal.START, Signal.END])
+    assert.deepEqual(signals, [0, 2])
     assert.equal(err, "fail")
   })
 })

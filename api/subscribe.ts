@@ -1,4 +1,4 @@
-import { Signal, Source, Talkback } from "strict-callbag"
+import { Source, Talkback } from "strict-callbag"
 import { schedule } from "./_internal/schedule"
 
 interface Callbacks<A, E> {
@@ -9,74 +9,77 @@ interface Callbacks<A, E> {
   talkbackOverride?: (original: Talkback<any>) => Talkback<any>
 }
 
-export const subscribe = <A, E>(
-  source: Source<A, E>,
-  { onStart, onData, onEnd, talkbackOverride }: Callbacks<A, E>,
-) => {
-  let started = false
-  let aborted = false
-  let pullPending = false
-  let talkback: Talkback<any>
-  let onCancel: (() => void) | undefined
-  let waitingForData = false
+export class Subscription {
+  private aborted = false
+  private pullPending = false
+  private talkback: Talkback<any> | undefined
+  private onCancel: (() => void) | undefined
+  private waitingForData = false
 
-  const listen = () => {
-    if (started) return
-    started = true
+  constructor(
+    private source: Source<any>,
+    private callbacks: Callbacks<any, any>,
+  ) {}
 
-    return source(Signal.START, (signal, data) => {
-      if (aborted) {
-        if (signal === Signal.START) {
-          data(Signal.END)
-          onCancel?.()
+  listen() {
+    this.source(0, (signal, data) => {
+      if (this.aborted) {
+        if (signal === 0) {
+          data(2)
+          this.onCancel?.()
         }
         return
       }
 
-      if (signal === Signal.START) {
-        talkback = talkbackOverride ? talkbackOverride(data) : data
-        if (pullPending) {
-          talkback(Signal.DATA)
+      if (signal === 0) {
+        this.talkback = this.callbacks.talkbackOverride
+          ? this.callbacks.talkbackOverride(data)
+          : data
+        if (this.pullPending) {
+          this.talkback!(1) // eslint-disable-line
         }
 
-        onStart()
-      } else if (signal === Signal.DATA) {
-        waitingForData = false
-        onData(data)
-      } else if (signal === Signal.END) {
-        aborted = true
-        schedule(() => onEnd(data))
+        this.callbacks.onStart()
+      } else if (signal === 1) {
+        this.waitingForData = false
+        this.callbacks.onData(data)
+      } else if (signal === 2) {
+        this.aborted = true
+        schedule(() => this.callbacks.onEnd(data))
       }
     })
   }
 
-  const cancel = (cb?: () => void) => {
-    if (aborted) return
+  cancel(cb?: () => void) {
+    if (this.aborted) return
 
-    aborted = true
-    onCancel = cb
+    this.aborted = true
+    this.onCancel = cb
 
-    if (talkback) {
-      talkback(Signal.END)
-      onCancel?.()
+    if (this.talkback) {
+      this.talkback(2)
+      this.onCancel?.()
     }
   }
 
-  const pull = () => {
-    if (aborted) return
+  pull() {
+    if (this.aborted) return
 
-    waitingForData = true
+    this.waitingForData = true
 
-    if (talkback) {
-      talkback(Signal.DATA)
+    if (this.talkback) {
+      this.talkback(1)
     } else {
-      pullPending = true
+      this.pullPending = true
     }
   }
 
-  const waiting = () => waitingForData
-
-  return { listen, cancel, pull, waiting }
+  waiting() {
+    return this.waitingForData
+  }
 }
 
-export type Subscription = ReturnType<typeof subscribe>
+export const subscribe = <A, E>(
+  source: Source<A, E>,
+  callbacks: Callbacks<A, E>,
+) => new Subscription(source, callbacks)

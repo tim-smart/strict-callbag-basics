@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { subscribe } from "./subscribe"
 
 const NONE = Symbol()
@@ -22,7 +22,7 @@ export const zip_ =
 
     const maybeEmit = () => {
       if (dataA !== NONE && dataB !== NONE) {
-        sink(Signal.DATA, [dataA, dataB])
+        sink(1, [dataA, dataB])
 
         if (!latest) {
           dataA = NONE
@@ -31,7 +31,7 @@ export const zip_ =
           if (endA || endB) {
             if (!endA) subB.cancel()
             if (!endB) subA.cancel()
-            sink(Signal.END, undefined)
+            sink(2, undefined)
           }
         }
       }
@@ -39,9 +39,9 @@ export const zip_ =
 
     const maybeEnd = () => {
       if (endA && endB) {
-        sink(Signal.END, undefined)
+        sink(2, undefined)
       } else if (!latest && dataA === NONE && dataB === NONE) {
-        sink(Signal.END, undefined)
+        sink(2, undefined)
       }
     }
 
@@ -58,7 +58,7 @@ export const zip_ =
 
         if (err) {
           subB.cancel()
-          sink(Signal.END, err)
+          sink(2, err)
         } else {
           maybeEnd()
         }
@@ -77,7 +77,7 @@ export const zip_ =
 
         if (err) {
           subA.cancel()
-          sink(Signal.END, err)
+          sink(2, err)
         } else {
           maybeEnd()
         }
@@ -85,8 +85,8 @@ export const zip_ =
     })
 
     let started = false
-    sink(Signal.START, (signal) => {
-      if (signal === Signal.DATA) {
+    sink(0, (signal) => {
+      if (signal === 1) {
         if (!started) {
           started = true
           subA.listen()
@@ -95,7 +95,7 @@ export const zip_ =
           subA.pull()
           subB.pull()
         }
-      } else if (signal === Signal.END) {
+      } else if (signal === 2) {
         subA.cancel()
         subB.cancel()
       }

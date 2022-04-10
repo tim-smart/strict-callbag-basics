@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 
 export const batchUntil_ =
@@ -21,10 +21,10 @@ export const batchUntil_ =
         if (predicate(data) && (inclusive || buffer.length > 0)) {
           if (inclusive) {
             buffer.push(data)
-            sink(Signal.DATA, buffer)
+            sink(1, buffer)
             buffer = []
           } else {
-            sink(Signal.DATA, buffer)
+            sink(1, buffer)
             buffer = [data]
           }
         } else {
@@ -34,11 +34,11 @@ export const batchUntil_ =
       },
       onEnd(err) {
         if (buffer.length > 0) {
-          sink(Signal.DATA, buffer)
+          sink(1, buffer)
           buffer = []
         }
 
-        sink(Signal.END, err)
+        sink(2, err)
       },
       onAbort() {
         buffer = []

@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 import { NONE } from "./none"
 import { Queue } from "./_internal/queue"
@@ -27,7 +27,7 @@ export const buffer_ =
 
     function maybeEnd() {
       if (sourceEnded && buffer.size === 0) {
-        sink(Signal.END, sourceError)
+        sink(2, sourceError)
       }
     }
 
@@ -47,7 +47,7 @@ export const buffer_ =
             s.pull()
           }
         } else {
-          sink(Signal.DATA, next)
+          sink(1, next)
 
           if (eager) {
             s.pull()
@@ -57,7 +57,7 @@ export const buffer_ =
       onData(_s, data) {
         if (waitingForData) {
           waitingForData = false
-          sink(Signal.DATA, data)
+          sink(1, data)
         } else {
           buffer.push(data)
         }

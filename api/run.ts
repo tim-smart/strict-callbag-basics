@@ -1,4 +1,4 @@
-import { Signal, Sink, Source } from "strict-callbag"
+import { Sink, Source } from "strict-callbag"
 import { noop } from "../Sink/noop"
 import { createPipe } from "./createPipe"
 
@@ -16,11 +16,11 @@ export const run_ = <A, E, EO>(
         s.pull()
       },
       onData(_s, data) {
-        sink(Signal.DATA, data)
+        sink(1, data)
       },
       onEnd(err) {
         if (err || ignoreEnd === false) {
-          sink(Signal.END, err)
+          sink(2, err)
         }
 
         if (err) {

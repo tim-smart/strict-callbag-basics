@@ -1,4 +1,4 @@
-import { Source, Signal, Talkback } from "strict-callbag"
+import { Source, Talkback } from "strict-callbag"
 
 export const catchError_ =
   <A, B, E, E1>(
@@ -10,16 +10,16 @@ export const catchError_ =
     const talkback: Talkback<any> = (signal) => innerTalkback(signal)
 
     const replaceSource = (source: Source<A | B, E | E1>, initial = false) => {
-      source(Signal.START, (t, d) => {
-        if (t === Signal.START) {
+      source(0, (t, d) => {
+        if (t === 0) {
           innerTalkback = d
 
           if (initial) {
-            sink(Signal.START, talkback)
+            sink(0, talkback)
           }
 
-          talkback(Signal.DATA)
-        } else if (initial && t === Signal.END && d !== undefined) {
+          talkback(1)
+        } else if (initial && t === 2 && d !== undefined) {
           replaceSource(onError(d as E))
         } else {
           sink(t, d as any)

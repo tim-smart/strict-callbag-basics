@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 
 export const delay_ =
@@ -15,7 +15,7 @@ export const delay_ =
 
     function maybeEnd() {
       if (sourceEnded && timeouts.size === 0) {
-        sink(Signal.END, sourceError)
+        sink(2, sourceError)
       }
     }
 
@@ -28,7 +28,7 @@ export const delay_ =
       },
       onData(_s, data) {
         const timeout = setTimeout(() => {
-          sink(Signal.DATA, data)
+          sink(1, data)
           timeouts.delete(timeout)
           maybeEnd()
         }, delayMs)

@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 
 export const toArray =
@@ -20,10 +20,10 @@ export const toArray =
       onEnd(err) {
         if (err) {
           array = []
-          sink(Signal.END, err)
+          sink(2, err)
         } else {
-          sink(Signal.DATA, array)
-          sink(Signal.END, undefined)
+          sink(1, array)
+          sink(2, undefined)
         }
       },
       onAbort() {

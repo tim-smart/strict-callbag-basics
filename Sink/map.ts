@@ -1,10 +1,10 @@
-import { Signal, Sink } from "strict-callbag"
+import { Sink } from "strict-callbag"
 
 export const map_ =
   <A, B, EI, EO>(self: Sink<A, EI, EO>, f: (b: B) => A): Sink<B, EI, EO> =>
   (signal, data) => {
-    if (signal === Signal.DATA) {
-      self(Signal.DATA, f(data))
+    if (signal === 1) {
+      self(1, f(data))
     } else {
       self(signal, data as any) // eslint-disable-line
     }

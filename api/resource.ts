@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { chain } from "./chain"
 import { flatten } from "./flatten"
 import { fromThunk } from "./fromThunk"
@@ -32,5 +32,5 @@ export const resource =
         return false
       }),
       chain(([_, source]) => source),
-    )(Signal.START, sink)
+    )(0, sink)
   }

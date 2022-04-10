@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { buffer, buffer_ } from "./buffer"
 import { createPipe } from "./createPipe"
 import { filter } from "./filter"
@@ -31,11 +31,11 @@ export const groupBy_ =
           const innerBuffered =
             bufferSize > 0 ? buffer_(inner, bufferSize) : inner
           emitted.set(key, innerBuffered)
-          sink(Signal.DATA, [innerBuffered, key, data])
+          sink(1, [innerBuffered, key, data])
         }
       },
       onEnd: (err) => {
-        sink(Signal.END, err)
+        sink(2, err)
         emitted.clear()
       },
       onAbort: () => {

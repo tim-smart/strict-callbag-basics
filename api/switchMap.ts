@@ -1,5 +1,5 @@
 // ets_tracing: off
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 import { subscribe, Subscription } from "./subscribe"
 
@@ -42,20 +42,20 @@ export const switchMap_ =
 
           onData(data) {
             waitingForData = false
-            sink(Signal.DATA, data)
+            sink(1, data)
           },
 
           onEnd(err) {
             innerSub = undefined
 
             if (sourceEnded) {
-              sink(Signal.END, err ?? sourceError)
+              sink(2, err ?? sourceError)
               return
             }
 
             if (err) {
               outerSub.cancel()
-              sink(Signal.END, err)
+              sink(2, err)
             } else if (waitingForData) {
               outerSub.pull()
             }
@@ -71,7 +71,7 @@ export const switchMap_ =
         sourceError = err
 
         if (!innerSub) {
-          sink(Signal.END, err)
+          sink(2, err)
         }
       },
 

@@ -1,4 +1,4 @@
-import { Source, Signal } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { createPipe } from "./createPipe"
 
 export const batchCount_ =
@@ -17,7 +17,7 @@ export const batchCount_ =
         buffer.push(data)
 
         if (buffer.length >= batchSize) {
-          sink(Signal.DATA, buffer)
+          sink(1, buffer)
           buffer = []
         } else {
           s.pull()
@@ -25,11 +25,11 @@ export const batchCount_ =
       },
       onEnd(err) {
         if (buffer.length > 0) {
-          sink(Signal.DATA, buffer)
+          sink(1, buffer)
           buffer = []
         }
 
-        sink(Signal.END, err)
+        sink(2, err)
       },
       onAbort() {
         buffer = []

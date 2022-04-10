@@ -6,16 +6,16 @@ import * as CB from "../../index"
 describe("never", () => {
   test("it only emits start", async () => {
     const signals: Signal[] = []
-    CB.never(Signal.START, (signal, data) => {
+    CB.never(0, (signal, data) => {
       signals.push(signal)
 
-      if (signal === Signal.START) {
-        data(Signal.DATA)
+      if (signal === 0) {
+        data(1)
       }
     })
 
     await new Promise((r) => setTimeout(r, 0))
 
-    assert.deepEqual(signals, [Signal.START])
+    assert.deepEqual(signals, [0])
   })
 })

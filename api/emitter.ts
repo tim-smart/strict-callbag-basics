@@ -1,4 +1,4 @@
-import { Signal, Sink } from "strict-callbag"
+import { Sink } from "strict-callbag"
 
 export interface Emitter<A, E> {
   data(this: void, a: A): void
@@ -8,12 +8,12 @@ export interface Emitter<A, E> {
 
 export const emitter = <A, E>(sink: Sink<A, E>): Emitter<A, E> => ({
   data(a) {
-    sink(Signal.DATA, a)
+    sink(1, a)
   },
   error(e) {
-    sink(Signal.END, e)
+    sink(2, e)
   },
   end() {
-    sink(Signal.END, undefined)
+    sink(2, undefined)
   },
 })

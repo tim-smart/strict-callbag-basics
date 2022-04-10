@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 
 export const fromThunk =
   <A>(f: () => A): Source<A, never> =>
@@ -6,17 +6,17 @@ export const fromThunk =
     let unsubed = false
     let running = false
 
-    sink(Signal.START, (signal) => {
-      if (signal === Signal.DATA) {
+    sink(0, (signal) => {
+      if (signal === 1) {
         if (!running) {
           running = true
-          sink(Signal.DATA, f())
+          sink(1, f())
         }
 
         if (!unsubed) {
-          sink(Signal.END, undefined as never)
+          sink(2, undefined as never)
         }
-      } else if (signal === Signal.END) {
+      } else if (signal === 2) {
         unsubed = true
       }
     })

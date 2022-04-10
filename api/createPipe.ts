@@ -1,4 +1,4 @@
-import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { Sink, Source, Talkback } from "strict-callbag"
 import { subscribe, Subscription } from "./subscribe"
 
 interface Callbacks<A, EI, EO> {
@@ -34,9 +34,9 @@ export const createPipe = <A, EI, EO = never>(
 ) => {
   let sub: Subscription
 
-  sink(Signal.START, (signal, err) => {
-    if (signal === Signal.DATA) {
-      if (!sub) {
+  sink(0, (signal, err) => {
+    if (signal === 1) {
+      if (sub === undefined) {
         sub = subscribe(source, {
           onStart() {
             onStart(sub)
@@ -52,7 +52,7 @@ export const createPipe = <A, EI, EO = never>(
       } else {
         onRequest(sub)
       }
-    } else if (Signal.END) {
+    } else if (2) {
       sub?.cancel()
       onAbort(err)
     }

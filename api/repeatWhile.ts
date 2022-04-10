@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { NONE } from "./none"
 import { subscribe, Subscription } from "./subscribe"
 
@@ -24,16 +24,16 @@ export const repeatWhile_ =
           waitingForData = false
           lastItem = data
 
-          sink(Signal.DATA, data)
+          sink(1, data)
         },
         onEnd(err) {
           if (err) {
-            sink(Signal.END, err)
+            sink(2, err)
           } else if (predicate(index, lastItem)) {
             resubscribe(index + 1)
             subscription!.listen()
           } else {
-            sink(Signal.END, undefined)
+            sink(2, undefined)
           }
         },
       })
@@ -41,8 +41,8 @@ export const repeatWhile_ =
       subscription = sub
     }
 
-    sink(Signal.START, (signal) => {
-      if (signal === Signal.DATA) {
+    sink(0, (signal) => {
+      if (signal === 1) {
         waitingForData = true
 
         if (!subscription) {
@@ -51,7 +51,7 @@ export const repeatWhile_ =
         } else {
           subscription.pull()
         }
-      } else if (signal === Signal.END) {
+      } else if (signal === 2) {
         subscription!.cancel()
       }
     })

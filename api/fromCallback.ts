@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 
 export type Callback<A, E> = (
   err: E | undefined | null,
@@ -15,21 +15,21 @@ export const fromCallback =
       if (aborted) return
 
       if (err) {
-        sink(Signal.END, err)
+        sink(2, err)
       } else {
         if (data) {
-          sink(Signal.DATA, data)
+          sink(1, data)
         }
-        sink(Signal.END, undefined)
+        sink(2, undefined)
       }
     }
 
-    sink(Signal.START, (signal) => {
-      if (signal === Signal.DATA) {
+    sink(0, (signal) => {
+      if (signal === 1) {
         if (running) return
         running = true
         f(cb)
-      } else if (signal === Signal.END) {
+      } else if (signal === 2) {
         aborted = true
       }
     })

@@ -23,7 +23,7 @@ export const make = <E, A>(
         onData(data)
       },
       onEnd(err) {
-        if (err) {
+        if (err !== undefined) {
           error(err, sub)
         } else {
           endSubscription(sub)
@@ -39,7 +39,7 @@ export const make = <E, A>(
     subscriptions.delete(sub)
     pullQueue.delete(sub)
 
-    if (!subscriptions.size && parentEnded) {
+    if (subscriptions.size === 0 && parentEnded) {
       onEnd(parentError)
     } else {
       onChildEnd()
@@ -72,12 +72,12 @@ export const make = <E, A>(
   }
 
   const pull = () => {
-    if (!pullQueue.size) {
+    if (pullQueue.size === 0) {
       onFailedPull?.()
       return
     }
 
-    const head = pullQueue.values().next().value as Subscription
+    const [head] = pullQueue
     pullQueue.delete(head)
     head.pull()
   }

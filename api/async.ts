@@ -1,4 +1,4 @@
-import { Signal, Sink, Source, Talkback } from "strict-callbag"
+import { Sink, Source, Talkback } from "strict-callbag"
 import { emitter, Emitter } from "./emitter"
 import { share } from "./share"
 
@@ -18,10 +18,10 @@ export const asyncP =
       cleanup?.()
     }
 
-    sink(Signal.START, (t) => {
+    sink(0, (t) => {
       talkback?.(t)
 
-      if (t === Signal.END) {
+      if (t === 2) {
         complete()
       }
     })
@@ -29,13 +29,13 @@ export const asyncP =
     cleanup = register((signal, data) => {
       if (completed) throw new Error("sink ended")
 
-      if (signal === Signal.START) {
+      if (signal === 0) {
         talkback = data
-      } else if (signal === Signal.DATA) {
-        sink(Signal.DATA, data)
-      } else if (signal === Signal.END) {
+      } else if (signal === 1) {
+        sink(1, data)
+      } else if (signal === 2) {
         complete()
-        sink(Signal.END, data)
+        sink(2, data)
       }
     })
 
@@ -57,39 +57,39 @@ export const asyncSinkP = <A, E = unknown>(): readonly [
   const parentSink: Sink<A, E> = (signal, data) => {
     if (completed) throw new Error("sink ended")
 
-    if (signal === Signal.START) {
+    if (signal === 0) {
       parentTalkback = data
-    } else if (signal === Signal.DATA) {
+    } else if (signal === 1) {
       if (sink) {
-        sink(Signal.DATA, data)
+        sink(1, data)
       } else {
         buffer.push(data)
       }
-    } else if (signal === Signal.END) {
+    } else if (signal === 2) {
       completed = true
       completedError = data
-      sink?.(Signal.END, data)
+      sink?.(2, data)
     }
   }
 
   const source: Source<A, E> = (_, data) => {
     sink = data
 
-    sink(Signal.START, (signal) => {
+    sink(0, (signal) => {
       parentTalkback?.(signal)
 
-      if (signal === Signal.END) {
+      if (signal === 2) {
         sink = undefined
       }
     })
 
     for (const item of buffer) {
-      sink(Signal.DATA, item)
+      sink(1, item)
     }
     buffer = []
 
     if (completed) {
-      data(Signal.END, completedError)
+      data(2, completedError)
       return
     }
   }

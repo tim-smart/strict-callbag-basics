@@ -1,4 +1,4 @@
-import { Signal, Source } from "strict-callbag"
+import { Source } from "strict-callbag"
 import { buffer_ } from "./buffer"
 import { createPipe } from "./createPipe"
 import { Subscription } from "./subscribe"
@@ -17,8 +17,8 @@ export const chainParP_ =
   ): Source<B, E | E1> =>
   (_, sink) => {
     const lb = LB.make<E | E1, B>(
-      (a) => sink(Signal.DATA, a),
-      (e) => sink(Signal.END, e),
+      (a) => sink(1, a),
+      (e) => sink(2, e),
       maybePullInner,
       maybePullInner,
     )
