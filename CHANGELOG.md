@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.29.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.28.1...strict-callbag-basics@0.29.0) (2022-04-10)
+
+
+### Features
+
+* overridePull for external talkback ([8984ce9](https://github.com/tim-smart/strict-callbag-basics/commit/8984ce96a3b1b6b3d77370a2b5c4b5a7211d3e74))
+
+
+
+
+
 ## [0.28.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.28.1-alpha.0...strict-callbag-basics@0.28.1) (2022-04-10)
 
 
