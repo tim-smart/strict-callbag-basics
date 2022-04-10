@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.28.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.28.1-alpha.0...strict-callbag-basics@0.28.1) (2022-04-10)
+
+
+### Bug Fixes
+
+* modules reference in startWith ([04b1ec2](https://github.com/tim-smart/strict-callbag-basics/commit/04b1ec2a12eead2b3b0b17660bf2b75e3c60e9be))
+
+
+
+
+
 ## [0.28.1-alpha.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.28.0...strict-callbag-basics@0.28.1-alpha.0) (2022-04-09)
 
 **Note:** Version bump only for package strict-callbag-basics
