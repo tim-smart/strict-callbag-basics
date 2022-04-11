@@ -34,16 +34,20 @@ export const createPipe = <A, EI, EO = never>(
 ) => {
   let sub: Subscription
 
-  sink(0, (signal, err) => {
+  function handleStart() {
+    onStart(sub)
+  }
+
+  function handleData(data: A) {
+    onData(sub, data)
+  }
+
+  sink(0, function startSink(signal, err) {
     if (signal === 1) {
       if (sub === undefined) {
         sub = subscribe(source, {
-          onStart() {
-            onStart(sub)
-          },
-          onData(data) {
-            onData(sub, data)
-          },
+          onStart: handleStart,
+          onData: handleData,
           onEnd,
           talkbackOverride,
         })

@@ -6,7 +6,7 @@ export const delay_ =
   (_, sink) => {
     let sourceEnded = false
     let sourceError: E | undefined
-    let timeouts = new Set<NodeJS.Timeout>()
+    const timeouts = new Set<NodeJS.Timeout>()
 
     function cleanup() {
       timeouts.forEach(clearTimeout)

@@ -2,7 +2,6 @@
   "name": "strict-callbag-basics",
   "version": "0.29.1",
   "description": "Common operators for strict-callbag",
-  "main": "index.js",
   "files": [
     "**/*.ts",
     "**/*.js",

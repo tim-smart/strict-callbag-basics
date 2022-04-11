@@ -35,6 +35,7 @@ export class Subscription {
         this.talkback = this.callbacks.talkbackOverride
           ? this.callbacks.talkbackOverride(data)
           : data
+
         if (this.pullPending) {
           this.talkback!(1) // eslint-disable-line
         }
