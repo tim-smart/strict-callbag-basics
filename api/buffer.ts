@@ -19,7 +19,9 @@ export const buffer_ =
     let sourceError: E | undefined
     let waitingForData = false
 
-    const buffer = new Queue<A>(bufferSize)
+    const buffer = new Queue<A>(
+      bufferSize === Infinity ? undefined : bufferSize,
+    )
 
     function cleanup() {
       buffer.clear()

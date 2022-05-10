@@ -55,7 +55,7 @@ export const chainPar_ = <E, E1, A, B>(
   self: Source<A, E>,
   fab: (a: A) => Source<B, E1>,
   concurrency?: number,
-  bufferSize?: number,
+  bufferSize = Infinity,
 ) => buffer_(chainParP_(self, fab, concurrency), bufferSize, true)
 
 export const chainParP =
