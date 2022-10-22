@@ -21,4 +21,14 @@ describe("every", () => {
 
     assert.deepEqual(result, false)
   })
+
+  test("it works with an empty source", async () => {
+    const pred = () => true
+
+    const empty: never[] = []
+    const expected = empty.every(pred)
+    const actual = await pipe(CB.fromIter(empty), CB.every(pred))
+
+    assert.deepEqual(actual, expected)
+  })
 })

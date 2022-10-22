@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
 
-import { toAsyncIterable } from "./toAsyncIterable"
+import { subscribe } from "./subscribe"
 
 /**
  * Emits a `boolean`, indicating whether all elements pass the predicate test.
@@ -10,15 +10,28 @@ import { toAsyncIterable } from "./toAsyncIterable"
  *  - {@link some}
  */
 export const every =
-  <A>(pred: (a: A, index: number) => Promise<boolean> | boolean) =>
-  // TODO: make more callbagie.
-  async (self: Source<A, never>): Promise<boolean> => {
-    let index = 0
-    for await (const element of toAsyncIterable(self)) {
-      const result = await pred(element, index++)
-      if (!result) {
-        return false
-      }
-    }
-    return true
-  }
+  <A>(pred: (value: A, index: number) => boolean) =>
+  (self: Source<A, any>): Promise<boolean> =>
+    new Promise((resolve, reject) => {
+      let result = true
+      let index = 0
+
+      const sub = subscribe(self, {
+        onStart() {
+          sub.pull()
+        },
+        onData(data) {
+          result = result && pred(data, index++)
+          sub.pull()
+        },
+        onEnd(err) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(result)
+          }
+        },
+      })
+
+      sub.listen()
+    })
