@@ -1,55 +1,101 @@
 import { Source } from "strict-callbag"
 
-import { toAsyncIterable } from "./toAsyncIterable"
+import { subscribe } from "./subscribe"
 
-interface Reduce {
-  /**
-   * Calls the specified callback function for all the elements. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-   * @param reducer A function that accepts up to three arguments. The reduce method calls the reducer function one time for each element.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the reducer function provides this value as an argument instead of a value.
-   * @see
-   *  - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.reduce}
-   */
-  <T, U = T>(
-    reducer: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-    ) => Promise<U> | U,
-  ): (self: Source<T, never>) => Promise<U>
+/**
+ * Calls the specified callback function for all the elements. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+ * @param reducer A function that accepts up to three arguments. The reduce method calls the reducer function one time for each element.
+ * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the reducer function provides this value as an argument instead of a value.
+ * @see
+ *  - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.reduce}
+ */
+export function reduce_<A, Acc>(
+  self: Source<A, any>,
+  reducer: (previousValue: A, item: A, index: number) => Acc,
+): Promise<Acc>
 
-  /**
-   * Calls the specified callback function for all the elements. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-   * @param reducer A function that accepts up to three arguments. The reduce method calls the reducer function one time for each element.
-   * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the reducer function provides this value as an argument instead of a value.
-   * @see
-   *  - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.reduce}
-   */
-  <T, U = T>(
-    reducer: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-    ) => Promise<U> | U,
-    initialValue: U,
-  ): (self: Source<T, never>) => Promise<U>
+/**
+ * Calls the specified callback function for all the elements. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+ * @param reducer A function that accepts up to three arguments. The reduce method calls the reducer function one time for each element.
+ * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the reducer function provides this value as an argument instead of a value.
+ * @see
+ *  - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.reduce}
+ */
+export function reduce_<A, Acc>(
+  self: Source<A, any>,
+  reducer: (previousValue: Acc, item: A, index: number) => Acc,
+  initialValue: Acc,
+): Promise<Acc>
+
+export function reduce_<A, Acc = A>(
+  ...args:
+    | [self: Source<A, any>, reducer: (acc: Acc, item: A, index: number) => Acc]
+    | [
+        self: Source<A, any>,
+        reducer: (acc: Acc, item: A, index: number) => Acc,
+        initialValue: Acc,
+      ]
+) {
+  return new Promise((resolve, reject) => {
+    const hasInitialValue = args.length === 3
+    const [self, reducer] = args
+    let [, , accumulated] = args
+    let index = 0
+
+    const sub = subscribe(self, {
+      onStart() {
+        sub.pull()
+      },
+      onData(data) {
+        if (index === 0 && !hasInitialValue) {
+          accumulated = data as unknown as Acc
+          index++
+        } else {
+          accumulated = reducer(accumulated!, data, index++)
+        }
+
+        sub.pull()
+      },
+      onEnd(err) {
+        if (err) {
+          reject(err)
+        } else if (!hasInitialValue && index === 0) {
+          reject(new TypeError("Reduce of empty source with no initial value"))
+        } else {
+          resolve(accumulated!)
+        }
+      },
+    })
+
+    sub.listen()
+  })
 }
 
-export const reduce: Reduce =
-  <T>(...args: [Parameters<Reduce>[0]] | [Parameters<Reduce>[0], T]) =>
-  // TODO: make more callbagie.
-  async (self: Source<T, never>): Promise<T> => {
-    const [reducer, initialValue] = args
+/**
+ * Calls the specified callback function for all the elements. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+ * @param reducer A function that accepts up to three arguments. The reduce method calls the reducer function one time for each element.
+ * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the reducer function provides this value as an argument instead of a value.
+ * @see
+ *  - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.reduce}
+ */
+export function reduce<A, Acc = A>(
+  reducer: (acc: Acc, item: A, index: number) => Acc,
+): (self: Source<A, any>) => Promise<Acc>
 
-    let index = 0
-    let value = initialValue
-    for await (const element of toAsyncIterable(self)) {
-      if (index === 0 && args.length === 1) {
-        value = element
-        index++
-      } else {
-        value = (await reducer(value!, element, index++)) as T
-      }
-    }
-    return value!
+/**
+ * Calls the specified callback function for all the elements. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+ * @param reducer A function that accepts up to three arguments. The reduce method calls the reducer function one time for each element.
+ * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the reducer function provides this value as an argument instead of a value.
+ * @see
+ *  - {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce Array.reduce}
+ */
+export function reduce<A, Acc = A>(
+  reducer: (previousValue: Acc, item: A, index: number) => Acc,
+  initialValue: Acc,
+): (self: Source<A, any>) => Promise<Acc>
+
+export function reduce(...args: [any]) {
+  return (self: Source<any, any>) => {
+    return reduce_(self, ...args)
   }
+}

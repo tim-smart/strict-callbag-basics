@@ -63,4 +63,22 @@ describe("reduce", () => {
 
     assert.deepEqual(result, true)
   })
+
+  test("it throw on empty source with no initial value", () => {
+    const result = pipe(
+      CB.fromIter([]),
+      CB.reduce(() => "" as never),
+    )
+
+    assert.isRejected(result)
+  })
+
+  test("it works with an empty source when there is an initial value", async () => {
+    const result = await pipe(
+      CB.fromIter([]),
+      CB.reduce(() => "" as never, "foo"),
+    )
+
+    assert.deepEqual(result, "foo")
+  })
 })
