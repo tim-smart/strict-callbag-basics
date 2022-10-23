@@ -4,7 +4,7 @@ import { describe, test } from "mocha"
 import * as CB from "../../index"
 
 describe("every", () => {
-  test("it tests if some predicate holds (positvie case)", async () => {
+  test("it tests if some predicate holds (positive case)", async () => {
     const result = await pipe(
       CB.fromIter([1, 2, 3, 4, 5]),
       CB.every((value) => value > 0),

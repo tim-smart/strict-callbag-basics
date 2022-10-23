@@ -13,7 +13,6 @@ export const some =
   <A>(pred: (value: A, index: number) => boolean) =>
   (self: Source<A, any>): Promise<boolean> =>
     new Promise((resolve, reject) => {
-      let result = false
       let index = 0
 
       const sub = subscribe(self, {
@@ -21,9 +20,9 @@ export const some =
           sub.pull()
         },
         onData(data) {
-          result = result || pred(data, index++)
-          if (result) {
+          if (pred(data, index++)) {
             sub.cancel()
+            resolve(true)
           } else {
             sub.pull()
           }
@@ -32,7 +31,7 @@ export const some =
           if (err) {
             reject(err)
           } else {
-            resolve(result)
+            resolve(false)
           }
         },
       })
