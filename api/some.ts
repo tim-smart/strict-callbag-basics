@@ -22,7 +22,11 @@ export const some =
         },
         onData(data) {
           result = result || pred(data, index++)
-          sub.pull()
+          if (result) {
+            sub.cancel()
+          } else {
+            sub.pull()
+          }
         },
         onEnd(err) {
           if (err) {

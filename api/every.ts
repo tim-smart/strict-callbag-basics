@@ -22,7 +22,11 @@ export const every =
         },
         onData(data) {
           result = result && pred(data, index++)
-          sub.pull()
+          if (result) {
+            sub.pull()
+          } else {
+            sub.cancel()
+          }
         },
         onEnd(err) {
           if (err) {
