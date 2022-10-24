@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.30.0...strict-callbag-basics@0.31.0) (2022-10-24)
+
+### Features
+
+- add toArrayPromise ([f9d418f](https://github.com/tim-smart/strict-callbag-basics/commit/f9d418fe023d926ce99afa4ff3385dd4b1046ec0))
+- allow accessing the index when mapping ([75786a9](https://github.com/tim-smart/strict-callbag-basics/commit/75786a9efc7c00b496d8b5bb4638752571e288ab))
+- new operators `every` and `some` ([229d00c](https://github.com/tim-smart/strict-callbag-basics/commit/229d00c34981449a4b0d4db310dc2506174eeada))
+- **reduce:** add new operator ([6fa8f0c](https://github.com/tim-smart/strict-callbag-basics/commit/6fa8f0c7a007d8b8c8a780896fd3662f8a2608d3))
+
+### Performance Improvements
+
+- early exit once result has been found ([90e87fe](https://github.com/tim-smart/strict-callbag-basics/commit/90e87fe063a0e91eeefe874946eead38d7d655d1))
+
 # [0.30.0](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@0.29.2...strict-callbag-basics@0.30.0) (2022-10-12)
 
 ### Features
