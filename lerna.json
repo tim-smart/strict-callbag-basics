@@ -1,7 +1,7 @@
 {
   "packages": ["."],
   "version": "independent",
-  "npmClient": "pnpm",
+  "npmClient": "npm",
   "command": {
     "version": {
       "allowBranch": "main",
