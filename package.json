@@ -1,6 +1,6 @@
 {
   "name": "strict-callbag-basics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common operators for strict-callbag",
   "type": "module",
   "files": [
