@@ -1,6 +1,6 @@
 import { Sink, Source, Talkback } from "strict-callbag"
-import { emitter, Emitter } from "./emitter"
-import { share } from "./share"
+import { emitter, Emitter } from "./emitter.js"
+import { share } from "./share.js"
 
 type Cleanup = () => void
 

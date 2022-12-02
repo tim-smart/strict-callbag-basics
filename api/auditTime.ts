@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
-import { createPipe } from "./createPipe"
-import { NONE } from "./none"
+import { createPipe } from "./createPipe.js"
+import { NONE } from "./none.js"
 
 export const auditTimeP_ =
   <A, E>(self: Source<A, E>, ms: number): Source<A, E> =>

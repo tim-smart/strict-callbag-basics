@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
-import { NONE } from "./none"
-import { subscribe } from "./subscribe"
+import { NONE } from "./none.js"
+import { subscribe } from "./subscribe.js"
 
 export const lastItemFrom = <A>(self: Source<A, any>): Promise<A> =>
   new Promise((resolve, reject) => {

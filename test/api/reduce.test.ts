@@ -1,7 +1,7 @@
 import { assert, use } from "chai"
-import { pipe } from "../../index"
+import { pipe } from "../../index.js"
 import { describe, test } from "mocha"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 import CAP from "chai-as-promised"
 
 use(CAP)

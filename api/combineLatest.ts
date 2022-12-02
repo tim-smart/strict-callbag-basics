@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { zip_ } from "./zip"
+import { zip_ } from "./zip.js"
 
 export const combineLatest_ = <A, B, E, E1>(
   self: Source<A, E>,

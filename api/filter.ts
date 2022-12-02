@@ -15,7 +15,7 @@ export function filter_<A, E>(
   self: Source<A, E>,
   pred: (a: A) => boolean,
 ): Source<A, E> {
-  return Filter(pred)(self as any) as any
+  return (Filter as any)(pred)(self)
 }
 
 export function filter<A, B extends A>(

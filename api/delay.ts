@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { createPipe } from "./createPipe"
+import { createPipe } from "./createPipe.js"
 
 export const delay_ =
   <A, E>(self: Source<A, E>, delayMs: number): Source<A, E> =>

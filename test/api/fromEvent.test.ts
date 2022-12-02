@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import EventEmitter from "events"
 import { describe, test } from "mocha"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 
 const emitter = new EventEmitter()
 

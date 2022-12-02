@@ -1,6 +1,6 @@
 import { assert } from "chai"
 import { describe, test } from "mocha"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 
 const fakeFetch = (index: number) =>
   CB.fromPromise_(

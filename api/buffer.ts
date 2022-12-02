@@ -1,7 +1,7 @@
 import { Source } from "strict-callbag"
-import { createPipe } from "./createPipe"
-import { NONE } from "./none"
-import { Queue } from "./_internal/queue"
+import { createPipe } from "./createPipe.js"
+import { NONE } from "./none.js"
+import { Queue } from "./_internal/queue.js"
 
 /**
  * Converts any type of stream into a pull based one.

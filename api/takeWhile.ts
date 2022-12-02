@@ -15,7 +15,7 @@ export function takeWhile_<A, E>(
   self: Source<A, E>,
   pred: (a: A) => boolean,
 ): Source<A, E> {
-  return cbTakeWhile(pred)(self as any) as any
+  return (cbTakeWhile as any)(pred)(self)
 }
 
 export function takeWhile<A, B extends A>(

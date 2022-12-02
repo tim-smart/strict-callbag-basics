@@ -1,10 +1,10 @@
 import { Source } from "strict-callbag"
-import { buffer, buffer_ } from "./buffer"
-import { createPipe } from "./createPipe"
-import { filter } from "./filter"
-import { pipe } from "./pipe"
-import { share } from "./share"
-import { startWith } from "./startWith"
+import { buffer, buffer_ } from "./buffer.js"
+import { createPipe } from "./createPipe.js"
+import { filter } from "./filter.js"
+import { pipe } from "./pipe.js"
+import { share } from "./share.js"
+import { startWith } from "./startWith.js"
 
 export const groupBy_ =
   <A, E, K>(

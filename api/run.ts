@@ -1,6 +1,6 @@
 import { Sink, Source } from "strict-callbag"
-import { noop } from "../Sink/noop"
-import { createPipe } from "./createPipe"
+import { noop } from "../Sink/noop.js"
+import { createPipe } from "./createPipe.js"
 
 export const run_ = <A, E, EO>(
   self: Source<A, E>,

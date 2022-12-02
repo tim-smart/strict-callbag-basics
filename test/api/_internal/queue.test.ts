@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import { describe, test } from "mocha"
-import { NONE } from "../../../api/none"
-import { Queue } from "../../../api/_internal/queue"
+import { NONE } from "../../../api/none.js"
+import { Queue } from "../../../api/_internal/queue.js"
 
 describe("Queue", () => {
   test("it works", async () => {

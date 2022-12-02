@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import { describe, test } from "mocha"
-import * as CB from "../../index"
-import * as CBS from "../../Sink"
+import * as CB from "../../index.js"
+import * as CBS from "../../Sink/index.js"
 
 describe("map", () => {
   test("transforms data", async () => {

@@ -1,7 +1,7 @@
 import { assert } from "chai"
-import { pipe } from "../../index"
+import { pipe } from "../../index.js"
 import { describe, test } from "mocha"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 
 describe("catchError", () => {
   test("it replaces errors with a new source", async () => {

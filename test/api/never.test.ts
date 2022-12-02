@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import { describe, test } from "mocha"
 import { Signal } from "strict-callbag"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 
 describe("never", () => {
   test("it only emits start", async () => {

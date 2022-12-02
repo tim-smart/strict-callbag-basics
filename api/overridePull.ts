@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { subscribe, Subscription } from "./subscribe"
+import { subscribe, Subscription } from "./subscribe.js"
 
 export const overridePull = <A, E>(
   self: Source<A, E>,

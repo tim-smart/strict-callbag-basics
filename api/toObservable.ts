@@ -1,7 +1,7 @@
 import { Source } from "strict-callbag"
 import symbol from "symbol-observable"
-import { subscribe, Subscription } from "./subscribe"
-import { InteropObservable, Subscribable } from "./_internal/observable"
+import { subscribe, Subscription } from "./subscribe.js"
+import { InteropObservable, Subscribable } from "./_internal/observable.js"
 
 export const toObservable = <A>(self: Source<A, any>): InteropObservable<A> => {
   const sub: Subscribable<A> = {
@@ -34,7 +34,7 @@ export const toObservable = <A>(self: Source<A, any>): InteropObservable<A> => {
   }
 
   return {
-    [symbol as typeof Symbol.observable]() {
+    [symbol as any as typeof Symbol.observable]() {
       return sub
     },
   }
@@ -89,7 +89,7 @@ export const toObservableWithPull = <A>(
 
   return [
     {
-      [symbol as typeof Symbol.observable]() {
+      [symbol as any as typeof Symbol.observable]() {
         return sub
       },
     },

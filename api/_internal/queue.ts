@@ -1,4 +1,4 @@
-import { NONE } from "../none"
+import { NONE } from "../none.js"
 
 export class Queue<A> {
   private elements: A[] = []

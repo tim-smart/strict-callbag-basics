@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { createPipe } from "./createPipe"
+import { createPipe } from "./createPipe.js"
 
 export const batchUntil_ =
   <A, E>(

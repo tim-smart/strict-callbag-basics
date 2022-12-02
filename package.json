@@ -2,6 +2,7 @@
   "name": "strict-callbag-basics",
   "version": "0.31.0",
   "description": "Common operators for strict-callbag",
+  "type": "module",
   "files": [
     "**/*.ts",
     "**/*.js",
@@ -61,7 +62,7 @@
     "callbag-take": "^1.5.0",
     "callbag-take-while": "^2.0.0",
     "callbag-to-async-iterable": "^1.0.0",
-    "strict-callbag": "^0.9.0",
+    "strict-callbag": "^1.0.0",
     "symbol-observable": "^4.0.0"
   },
   "resolutions": {

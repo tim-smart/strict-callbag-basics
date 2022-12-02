@@ -1,10 +1,10 @@
 import { Source } from "strict-callbag"
-import { chain } from "./chain"
-import { flatten } from "./flatten"
-import { fromThunk } from "./fromThunk"
-import { NONE } from "./none"
-import { pipe } from "./pipe"
-import { repeatWhile } from "./repeatWhile"
+import { chain } from "./chain.js"
+import { flatten } from "./flatten.js"
+import { fromThunk } from "./fromThunk.js"
+import { NONE } from "./none.js"
+import { pipe } from "./pipe.js"
+import { repeatWhile } from "./repeatWhile.js"
 
 export const resource =
   <Acc, A, E, E1>(

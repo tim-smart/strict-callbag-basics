@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { mapError_ } from "./mapError"
+import { mapError_ } from "./mapError.js"
 
 export const tapError_ = <A, E>(self: Source<A, E>, f: (e: E) => any) =>
   mapError_(self, (e) => {

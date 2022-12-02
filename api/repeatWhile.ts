@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
-import { NONE } from "./none"
-import { subscribe, Subscription } from "./subscribe"
+import { NONE } from "./none.js"
+import { subscribe, Subscription } from "./subscribe.js"
 
 export const repeatWhile_ =
   <A, E>(

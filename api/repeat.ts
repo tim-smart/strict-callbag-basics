@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { repeatWhile_ } from "./repeatWhile"
+import { repeatWhile_ } from "./repeatWhile.js"
 
 export const repeat_ = <A, E>(
   self: Source<A, E>,

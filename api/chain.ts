@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
-import { flatten } from "./flatten"
-import { map_ } from "./map"
+import { flatten } from "./flatten.js"
+import { map_ } from "./map.js"
 
 export const chain_ = <A, B, E, E1>(
   self: Source<A, E>,

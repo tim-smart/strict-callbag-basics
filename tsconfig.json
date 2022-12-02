@@ -3,14 +3,14 @@
     "declaration": true,
     "lib": ["ESNext"],
     "target": "ES2022",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "ES6",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true
   },
 
-  "exclude": ["node_modules/", "docs/", "perf/"],
+  "exclude": ["node_modules/**/*", "docs/", "perf/"],
 
   "typedoc": {
     "out": "docs",

@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import * as LB from "./_internal/lb"
+import * as LB from "./_internal/lb.js"
 
 export const mergeIdentical =
   <A, E>(...sources: Source<A, E>[]): Source<A, E> =>

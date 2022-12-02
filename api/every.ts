@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
 
-import { subscribe } from "./subscribe"
+import { subscribe } from "./subscribe.js"
 
 /**
  * Emits a `boolean`, indicating whether all elements pass the predicate test.

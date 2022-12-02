@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { subscribe } from "./subscribe"
+import { subscribe } from "./subscribe.js"
 
 const NONE = Symbol()
 type NONE = typeof NONE

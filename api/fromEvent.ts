@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Source } from "strict-callbag"
-import { asyncP } from "./async"
-import { buffer_ } from "./buffer"
+import { asyncP } from "./async.js"
+import { buffer_ } from "./buffer.js"
 
 interface NodeishEmitter {
   addListener(eventName: string, listener: (...args: any[]) => unknown): unknown

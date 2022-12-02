@@ -3,4 +3,4 @@ import { Source } from "strict-callbag"
 
 export const fromIter = <A>(
   iter: Iterable<A> | Iterator<A>,
-): Source<A, never> => FromIter(iter) as any
+): Source<A, never> => (FromIter as any)(iter)

@@ -1,5 +1,5 @@
 import { Source } from "strict-callbag"
-import { subscribe } from "./subscribe"
+import { subscribe } from "./subscribe.js"
 
 export const firstItemFrom = <A>(self: Source<A, any>): Promise<A> =>
   new Promise((resolve, reject) => {

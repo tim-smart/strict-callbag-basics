@@ -1,6 +1,6 @@
 import { Source } from "strict-callbag"
 
-import { subscribe } from "./subscribe"
+import { subscribe } from "./subscribe.js"
 
 /**
  * Calls the specified callback function for all the elements. The return value

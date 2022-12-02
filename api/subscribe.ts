@@ -1,5 +1,5 @@
 import { Source, Talkback } from "strict-callbag"
-import { schedule } from "./_internal/schedule"
+import { schedule } from "./_internal/schedule.js"
 
 interface Callbacks<A, E> {
   onStart: (this: void) => void

@@ -1,7 +1,7 @@
 // ets_tracing: off
 import { Source } from "strict-callbag"
-import { createPipe } from "./createPipe"
-import { subscribe, Subscription } from "./subscribe"
+import { createPipe } from "./createPipe.js"
+import { subscribe, Subscription } from "./subscribe.js"
 
 export const switchMap_ =
   <E, E1, A, B>(

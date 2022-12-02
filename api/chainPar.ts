@@ -1,8 +1,8 @@
 import { Source } from "strict-callbag"
-import { buffer_ } from "./buffer"
-import { createPipe } from "./createPipe"
-import { Subscription } from "./subscribe"
-import * as LB from "./_internal/lb"
+import { buffer_ } from "./buffer.js"
+import { createPipe } from "./createPipe.js"
+import { Subscription } from "./subscribe.js"
+import * as LB from "./_internal/lb.js"
 
 /**
  * A semi-push stream.

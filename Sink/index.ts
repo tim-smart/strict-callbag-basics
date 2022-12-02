@@ -1,2 +1,2 @@
-export * from "./map"
-export * from "./noop"
+export * from "./map.js"
+export * from "./noop.js"

@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import { describe, test } from "mocha"
 import * as Rx from "rxjs"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 
 describe("fromObservable", () => {
   test("it works with rxjs observables", async () => {

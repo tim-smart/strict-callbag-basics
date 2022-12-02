@@ -1,6 +1,6 @@
 import { assert } from "chai"
 import { describe, test } from "mocha"
-import * as CB from "../../index"
+import * as CB from "../../index.js"
 
 describe("overridePull", () => {
   test("it ignores the internal talkback", async () => {

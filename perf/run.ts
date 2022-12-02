@@ -1,5 +1,5 @@
 import { suite, add, cycle, complete } from "benny"
-import * as CB from "../"
+import * as CB from "../index.js"
 import * as Rx from "rxjs"
 import * as RxO from "rxjs/operators"
 import * as S from "@effect-ts/core/Effect/Experimental/Stream"

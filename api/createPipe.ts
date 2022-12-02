@@ -1,5 +1,5 @@
 import { Sink, Source, Talkback } from "strict-callbag"
-import { subscribe, Subscription } from "./subscribe"
+import { subscribe, Subscription } from "./subscribe.js"
 
 interface Callbacks<A, EI, EO> {
   onStart: (this: void, sub: Subscription) => void
