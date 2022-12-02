@@ -11,14 +11,8 @@
     "!test/**/*"
   ],
   "exports": {
-    ".": {
-      "import": "./esm/index.js",
-      "require": "./index.js"
-    },
-    "./Sink": {
-      "import": "./esm/Sink/index.js",
-      "require": "./Sink/index.js"
-    }
+    ".": "./index.js",
+    "./Sink": "./Sink/index.js"
   },
   "repository": "https://github.com/tim-smart/strict-callbag-basics.git",
   "author": "Tim Smart <hello@timsmart.co>",
