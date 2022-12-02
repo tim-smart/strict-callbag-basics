@@ -20,7 +20,7 @@
   "scripts": {
     "prepublishOnly": "npm run clean && tsc",
     "clean": "git clean -fx -e node_modules -- '*.js' '*.d.ts'",
-    "test": "mocha -r ts-node/register test/**/*.test.ts",
+    "test": "mocha test/**/*.test.ts",
     "docs": "rm -rf docs && typedoc index.ts"
   },
   "devDependencies": {

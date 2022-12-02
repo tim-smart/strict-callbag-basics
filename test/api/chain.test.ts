@@ -14,4 +14,15 @@ describe("chain", () => {
 
     assert.deepEqual(result, [11, 12, 13])
   })
+
+  test("nested iterables", async () => {
+    const result = await pipe(
+      CB.fromIter([[1, 2], [3, 4], [5]]),
+      CB.chain(CB.fromIter),
+      CB.toArray,
+      CB.lastItemFrom,
+    )
+
+    assert.deepEqual(result, [1, 2, 3, 4, 5])
+  })
 })
