@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@1.0.1...strict-callbag-basics@1.0.2) (2022-12-04)
+
+### Bug Fixes
+
+- chainPar cancel parent on child error ([9e64693](https://github.com/tim-smart/strict-callbag-basics/commit/9e64693382d1a7605a06791e033b82b78b1a2275))
+
 ## [1.0.1](https://github.com/tim-smart/strict-callbag-basics/compare/strict-callbag-basics@1.0.0...strict-callbag-basics@1.0.1) (2022-12-02)
 
 ### Bug Fixes
