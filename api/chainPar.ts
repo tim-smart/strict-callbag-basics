@@ -18,7 +18,12 @@ export const chainParP_ =
   (_, sink) => {
     const lb = LB.make<E | E1, B>(
       (a) => sink(1, a),
-      (e) => sink(2, e),
+      (e, s) => {
+        if (e && s) {
+          sub.cancel()
+        }
+        sink(2, e)
+      },
       maybePullInner,
       maybePullInner,
     )

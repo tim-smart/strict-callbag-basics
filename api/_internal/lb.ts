@@ -3,7 +3,7 @@ import { subscribe, Subscription } from "../subscribe.js"
 
 export const make = <E, A>(
   onData: (a: A) => void,
-  onEnd: (e?: E) => void,
+  onEnd: (e?: E, source?: Subscription) => void,
   onChildEnd: () => void,
   onFailedPull?: () => void,
 ) => {
@@ -68,7 +68,7 @@ export const make = <E, A>(
 
   const error = (err: E, sub?: Subscription) => {
     abort(sub)
-    onEnd(err)
+    onEnd(err, sub)
   }
 
   const pull = () => {
