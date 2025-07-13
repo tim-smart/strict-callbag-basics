@@ -56,7 +56,7 @@ export const createPipe = <A, EI, EO = never>(
       } else {
         onRequest(sub)
       }
-    } else if (2) {
+    } else if (signal === 2) {
       sub?.cancel()
       onAbort(err)
     }
